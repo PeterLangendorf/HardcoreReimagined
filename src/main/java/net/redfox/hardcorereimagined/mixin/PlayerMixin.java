@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PlayerMixin implements IMixinConfigPlugin {
   @Override
   public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-    return ModCommonConfigs.GLOBAL_FOOD_HISTORY_TOGGLE.get();
+    return ModCommonConfigs.FOOD_HISTORY_ENABLED.get();
   }
 
   @Inject(method = "eat", at = @At("HEAD"), cancellable = true)

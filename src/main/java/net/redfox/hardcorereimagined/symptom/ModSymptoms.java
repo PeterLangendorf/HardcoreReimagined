@@ -4,9 +4,17 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
+import net.redfox.hardcorereimagined.HardcoreReimagined;
 
 public class ModSymptoms {
   public static void periodicUpdate(ServerPlayer player) {
+    if (player.isCreative() || player.isDeadOrDying()) return;
     float health = player.getHealth();
     int hunger = player.getFoodData().getFoodLevel();
 

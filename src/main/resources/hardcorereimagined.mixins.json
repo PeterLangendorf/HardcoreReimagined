@@ -5,13 +5,7 @@
 	"compatibilityLevel": "JAVA_8",
 	"refmap": "hardcorereimagined.refmap.json",
 	"mixins": [
-		"AgeableMobMixin",
-		"AnimalMixin",
 		"BoneMealCropBlockMixin",
-		"BoneMealMixin",
-		"ChickenMixin",
-		"CropBlockMixin",
-		"FoodDataMixin",
 		"PlayerMixin"
 	],
 	"client": [

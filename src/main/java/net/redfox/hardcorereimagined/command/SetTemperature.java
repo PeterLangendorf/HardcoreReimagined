@@ -1,7 +1,7 @@
 package net.redfox.hardcorereimagined.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -17,12 +17,12 @@ public class SetTemperature {
             .then(
                 Commands.literal("set")
                     .then(
-                        Commands.argument("value", FloatArgumentType.floatArg())
+                        Commands.argument("value", DoubleArgumentType.doubleArg())
                             .executes(SetTemperature::setTemperature))));
   }
 
   private static int setTemperature(CommandContext<CommandSourceStack> context) {
-    float value = FloatArgumentType.getFloat(context, "value");
+    double value = DoubleArgumentType.getDouble(context, "value");
     if (context.getSource().getPlayer() != null)
       context
           .getSource()

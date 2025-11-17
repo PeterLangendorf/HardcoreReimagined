@@ -1,9 +1,11 @@
 package net.redfox.hardcorereimagined.event;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,17 +23,8 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onToolTip(ItemTooltipEvent event) {
       if (!event.getItemStack().isEdible()) return;
-      if (!FoodNerf.TOOLTIPS.containsKey(event.getItemStack().getItem())) return;
       if (event.getEntity() == null) return;
 
-      event
-          .getToolTip()
-          .add(
-              Component.translatable(
-                  "tooltip."
-                      + HardcoreReimagined.MOD_ID
-                      + "."
-                      + FoodNerf.TOOLTIPS.get(event.getItemStack().getItem()).toLowerCase()));
       PlayerFoodHistory.appendNutritionStats(event.getItemStack(), event.getToolTip());
     }
   }

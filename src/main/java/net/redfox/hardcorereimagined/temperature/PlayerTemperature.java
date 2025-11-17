@@ -1,5 +1,9 @@
 package net.redfox.hardcorereimagined.temperature;
 
+import static net.redfox.hardcorereimagined.config.FormattedConfigValues.Temperature.*;
+
+import java.util.*;
+import java.util.stream.Stream;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,6 +18,7 @@ import net.redfox.hardcorereimagined.effect.HypothermiaEffect;
 import net.redfox.hardcorereimagined.networking.ModPackets;
 import net.redfox.hardcorereimagined.networking.packet.TemperatureDataSyncS2CPacket;
 import net.redfox.hardcorereimagined.util.MathHelper;
+import net.redfox.hardcorereimagined.util.config.ConfigValue;
 import oshi.util.tuples.Pair;
 
 @AutoRegisterCapability
@@ -31,7 +36,7 @@ public class PlayerTemperature {
   public void approachTemperature(double goal) {
     double difference =
         MathHelper.roundToOneDecimal(
-            ((Math.max(0.1, Math.min(5, Math.abs(goal - temperature) / 10))) * 10) / 10.0F);
+            ((Math.max(0.1, Math.min(5, Math.abs(goal - temperature) / 10))) * 10) / 10);
 
     if (temperature > goal) {
       temperature -= difference;
@@ -71,92 +76,118 @@ public class PlayerTemperature {
     Block currentBlock = level.getBlockState(player.blockPosition()).getBlock();
     double goalTemperature = 0;
     // Biome
-    goalTemperature +=
-        FormattedConfigValues.checkMapForValue(
-            FormattedConfigValues.Temperature.BIOME_TEMPERATURES,
-            level.getBiome(player.blockPosition()).get());
 
-    // Insulators (torches, campfires, lava, fire, magma)
-    for (BlockState state :
-        (BlockState[])
-            level.getBlockStates(player.getBoundingBox().inflate(5)).distinct().toArray()) {
+    if (BIOME_TEMPERATURE_ENABLED.getAsBoolean()) {
       goalTemperature +=
           FormattedConfigValues.checkMapForValue(
-              FormattedConfigValues.Temperature.BLOCK_TEMPERATURES, state.getBlock());
+              BIOME_TEMPERATURES, level.getBiome(player.blockPosition()).get());
+    }
+
+    // Insulators (torches, campfires, lava, fire, magma)
+    if (INSULATORS_ENABLED.getAsBoolean()) {
+      Stream<BlockState> stream =
+          level.getBlockStates(player.getBoundingBox().inflate(INSULATORS_RANGE.get()));
+      if (INSULATORS_DISTINCT.getAsBoolean()) {
+        Set<ConfigValue<Block>> countedConfigs = new HashSet<>();
+        List<BlockState> allStates = stream.toList();
+        for (BlockState state : allStates) {
+          for (Map.Entry<ConfigValue<Block>, Integer> entry : INSULATOR_TEMPERATURES.entrySet()) {
+            ConfigValue<Block> configValue = entry.getKey();
+            if (configValue.is(state.getBlock())) {
+              if (countedConfigs.add(configValue)) goalTemperature += entry.getValue();
+              break;
+            }
+          }
+        }
+
+      } else {
+        for (BlockState state : stream.toList()) {
+          goalTemperature +=
+              FormattedConfigValues.checkMapForValue(INSULATOR_TEMPERATURES, state.getBlock());
+        }
+      }
     }
 
     // Fluids
-    goalTemperature +=
-        FormattedConfigValues.checkMapForValue(
-            FormattedConfigValues.Temperature.FLUID_TEMPERATURES, currentBlock);
+    if (FLUID_TEMPERATURE_ENABLED.getAsBoolean())
+      goalTemperature += FormattedConfigValues.checkMapForValue(FLUID_TEMPERATURES, currentBlock);
 
-    if (player.getItemBySlot(EquipmentSlot.FEET).isEmpty()) {
+    // Block Temperatures
+    if (BLOCK_TEMPERATURES_ENABLED.getAsBoolean()
+        && ((BLOCK_TEMPERATURES_NEED_BOOTS.getAsBoolean()
+                && player.getItemBySlot(EquipmentSlot.FEET).isEmpty())
+            || !BLOCK_TEMPERATURES_NEED_BOOTS.getAsBoolean())) {
       goalTemperature +=
           FormattedConfigValues.checkMapForValue(
-              FormattedConfigValues.Temperature.BLOCK_TOP_TEMPERATURES,
-              level.getBlockState(player.blockPosition().below()).getBlock());
+              BLOCK_TEMPERATURES, level.getBlockState(player.blockPosition().below()).getBlock());
       if (level
           .getBlockState(player.blockPosition())
           .isCollisionShapeFullBlock(level, player.blockPosition()))
-        goalTemperature +=
-            FormattedConfigValues.checkMapForValue(
-                FormattedConfigValues.Temperature.BLOCK_TOP_TEMPERATURES, currentBlock);
+        goalTemperature += FormattedConfigValues.checkMapForValue(BLOCK_TEMPERATURES, currentBlock);
     }
+
     // Rain / snow / thunder
-    if (level.isRainingAt(player.blockPosition())) {
-      goalTemperature -= 30;
-    }
-    if (level.isRaining()
-        && level.getBiome(player.blockPosition()).value().coldEnoughToSnow(player.blockPosition())
-        && level.canSeeSky(player.blockPosition())) {
-      goalTemperature -= 60;
+    if (WEATHER_TEMPERATURES_ENABLED.getAsBoolean()) {
+      if (level.isRainingAt(player.blockPosition())) {
+        goalTemperature += RAIN_TEMPERATURE.get();
+      }
+      if (level.isRaining()
+          && level.getBiome(player.blockPosition()).value().coldEnoughToSnow(player.blockPosition())
+          && level.canSeeSky(player.blockPosition())) {
+        goalTemperature += SNOW_TEMPERATURE.get();
+      }
     }
 
     // Day or night
-
-    if (level.isDay() && level.dimension() == Level.OVERWORLD) {
-      goalTemperature += 10;
-    } else {
-      goalTemperature -= 10;
+    if (TIME_TEMPERATURE_ENABLED.getAsBoolean()) {
+      if (level.isDay() && level.dimension() == Level.OVERWORLD) {
+        goalTemperature += DAY_TEMPERATURE.get();
+      } else {
+        goalTemperature += NIGHT_TEMPERATURE.get();
+      }
     }
-
     // On fire
 
-    if (player.getRemainingFireTicks() > 0) {
-      goalTemperature += 50;
+    if (FIRE_TEMPERATURE_ENABLED.getAsBoolean() && player.getRemainingFireTicks() > 0) {
+      goalTemperature += FIRE_TEMPERATURE.get();
     }
 
     // Altitude
-
-    if (player.getY() < 40) {
-      goalTemperature -= MathHelper.roundToOneDecimal(Math.abs(((player.getY() - 40) / 5.0F)));
+    if (ALTITUDE_TEMPERATURE_ENABLED.getAsBoolean()) {
+      if (player.getY() < LOWER_ALTITUDE.get()) {
+        goalTemperature -=
+            MathHelper.roundToOneDecimal(
+                Math.abs(((player.getY() - LOWER_ALTITUDE.get()) / LOWER_MULTIPLIER.get())));
+      }
+      if (player.getY() > UPPER_ALTITUDE.get()) {
+        goalTemperature -=
+            MathHelper.roundToOneDecimal(
+                Math.abs(((UPPER_ALTITUDE.get() - player.getY()) / UPPER_MULTIPLIER.get())));
+      }
     }
-    if (player.getY() > 80) {
-      goalTemperature -= MathHelper.roundToOneDecimal(Math.abs(((80 - player.getY()) / 5.0F)));
-    }
+    if (ARMOR_INSULATIONS_ENABLED.getAsBoolean()) {
+      int heatResistance = 0;
+      int coldResistance = 0;
 
-    int heatResistance = 0;
-    int coldResistance = 0;
+      for (ItemStack i : player.getArmorSlots()) {
+        Pair<Integer, Integer> ints =
+            FormattedConfigValues.checkMapForPair(ARMOR_INSULATIONS, i.getItem());
+        heatResistance += ints.getA();
+        coldResistance += ints.getB();
 
-    for (ItemStack i : player.getArmorSlots()) {
-      Pair<Integer, Integer> ints =
-          FormattedConfigValues.checkMapForPair(
-              FormattedConfigValues.Temperature.ARMOR_INSULATIONS, i.getItem());
-      heatResistance += ints.getA();
-      coldResistance += ints.getB();
-
-      if (goalTemperature < 0) {
-        goalTemperature += coldResistance;
-        if (goalTemperature > 0) goalTemperature = 0;
-      } else if (goalTemperature > 0) {
-        goalTemperature -= heatResistance;
-        if (goalTemperature < 0) goalTemperature = 0;
+        if (goalTemperature < 0) {
+          goalTemperature += coldResistance;
+          if (goalTemperature > 0) goalTemperature = 0;
+        } else if (goalTemperature > 0) {
+          goalTemperature -= heatResistance;
+          if (goalTemperature < 0) goalTemperature = 0;
+        }
       }
     }
 
     return goalTemperature
-        + (FormattedConfigValues.Temperature.FLUCTUATE_TEMPERATURE.getAsBoolean()
-            ? MathHelper.roundToOneDecimal(Math.random() - 0.5F)
+        + (FLUCTUATE_TEMPERATURE.getAsBoolean()
+            ? MathHelper.roundToOneDecimal(Math.random()*2 - 0.5)
             : 0);
   }
 }

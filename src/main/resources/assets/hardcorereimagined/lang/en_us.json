@@ -6,12 +6,5 @@
 
 	"tooltip.hardcorereimagined.nutritional_value": "Nutritional Value: %s",
 	"tooltip.hardcorereimagined.times_eaten": "Eaten %s out of the last %s foods",
-	"tooltip.hardcorereimagined.not_recently_eaten": "Not eaten recently",
-
-	"tooltip.hardcorereimagined.morsel": "Morsel",
-	"tooltip.hardcorereimagined.snack": "Snack",
-	"tooltip.hardcorereimagined.light_meal": "Light Meal",
-	"tooltip.hardcorereimagined.meal": "Meal",
-	"tooltip.hardcorereimagined.heavy_meal": "Heavy Meal",
-	"tooltip.hardcorereimagined.feast": "Feast"
+	"tooltip.hardcorereimagined.not_recently_eaten": "Not eaten recently"
 }

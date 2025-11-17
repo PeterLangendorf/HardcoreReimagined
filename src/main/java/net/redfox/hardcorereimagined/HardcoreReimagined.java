@@ -41,12 +41,12 @@ public class HardcoreReimagined {
     }
   }
 
-  // Bone meal nerf
-
   private void commonSetup(final FMLCommonSetupEvent event) {
     FormattedConfigValues.populateConfigValues();
     ModPackets.register();
     TemperatureHudOverlay.initialize();
     FoodNerf.nerfFoods();
+
+    if (ModClientConfigs.FOOD_TYPE_TOOLTIP_DISPLAY.get()) MinecraftForge.EVENT_BUS.addListener(FoodNerf::addTooltip);
   }
 }

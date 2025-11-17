@@ -3,75 +3,34 @@ package net.redfox.hardcorereimagined.food;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.resources.ResourceLocation;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.fml.ModList;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.redfox.hardcorereimagined.HardcoreReimagined;
+import net.redfox.hardcorereimagined.config.FormattedConfigValues;
 
 public class FoodNerf {
   public static final Map<Item, String> TOOLTIPS = new HashMap<>();
 
   public static void nerfFoods() {
-    HashMap<String, Integer> loaded = new HashMap<>();
-    HashMap<String, Integer> skipped = new HashMap<>();
-    for (FoodStats stats : PublishedConfigValues.FOOD_VALUES) {
-      if (ModList.get().isLoaded(stats.namespace())) {
-        if (!loaded.containsKey(stats.namespace())) {
-          loaded.put(stats.namespace(), 1);
-        } else {
-          loaded.put(stats.namespace(), loaded.get(stats.namespace()) + 1);
-        }
-        Item value = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(stats.getName()));
-        if (value != null && value != Items.AIR) {
-          if (value.isEdible()) {
-            TOOLTIPS.put(value, stats.presetFoot());
-            modifyFoodProps(
-                value,
-                new FoodProperties.Builder()
-                    .nutrition(stats.hunger())
-                    .saturationMod(stats.saturation() / 2)
-                    .build());
-            if (stats.maxStackSize() != -1) {
-              modifyMaxStackSize(value, stats.maxStackSize());
-            }
-          } else {
-            HardcoreReimagined.LOGGER.error(
-                "{} is not an edible item and was therefore skipped", stats.getName());
-            if (!skipped.containsKey(stats.namespace())) {
-              skipped.put(stats.namespace(), 1);
-            } else {
-              skipped.put(stats.namespace(), skipped.get(stats.namespace()) + 1);
-            }
-          }
-        } else {
-          HardcoreReimagined.LOGGER.error(
-              "{} does not exist and was therefore skipped", stats.getName());
-          if (!skipped.containsKey(stats.namespace())) {
-            skipped.put(stats.namespace(), 1);
-          } else {
-            skipped.put(stats.namespace(), skipped.get(stats.namespace()) + 1);
-          }
-        }
+    for (Item item : FormattedConfigValues.FoodNerf.FOOD_MODIFICATIONS.keySet()) {
+      if (item.isEdible()) {
+        FoodCategory category = FormattedConfigValues.FoodNerf.FOOD_MODIFICATIONS.get(item);
+        TOOLTIPS.put(item, formatTooltip(category.name()));
+        modifyFoodProps(
+            item,
+            new FoodProperties.Builder()
+                .nutrition(category.hunger())
+                .saturationMod((float) (category.saturationMultiplier() / 2f))
+                .build());
+        modifyMaxStackSize(item, category.maxStackSize());
       } else {
-        if (!skipped.containsKey(stats.namespace())) {
-          skipped.put(stats.namespace(), 1);
-        } else {
-          skipped.put(stats.namespace(), skipped.get(stats.namespace()) + 1);
-        }
+        HardcoreReimagined.LOGGER.error("{} is not an edible item and was therefore skipped", item);
       }
-    }
-
-    for (String namespace : loaded.keySet()) {
-      HardcoreReimagined.LOGGER.info(
-          "{} items from {} were loaded!", loaded.get(namespace), namespace);
-    }
-    for (String namespace : skipped.keySet()) {
-      HardcoreReimagined.LOGGER.info(
-          "{} items from {} were skipped!", skipped.get(namespace), namespace);
     }
   }
 
@@ -94,5 +53,27 @@ public class FoodNerf {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private static String formatTooltip(String input) {
+    String lower = input.toLowerCase();
+    String[] split = lower.split("_");
+    StringBuilder output = new StringBuilder();
+    for (String s : split) {
+      output.append(s.substring(0, 1).toUpperCase()).append(s.substring(1)).append(" ");
+    }
+    return output.toString().trim();
+  }
+
+  public static void addTooltip(ItemTooltipEvent event) {
+    if (!event.getItemStack().isEdible()) return;
+    if (event.getEntity() == null) return;
+    if (!TOOLTIPS.containsKey(event.getItemStack().getItem())) return;
+
+    event
+        .getToolTip()
+        .add(1,
+            Component.literal(TOOLTIPS.get(event.getItemStack().getItem())).withStyle(ChatFormatting.GRAY));
+    event.getToolTip().add(2, Component.empty());
   }
 }

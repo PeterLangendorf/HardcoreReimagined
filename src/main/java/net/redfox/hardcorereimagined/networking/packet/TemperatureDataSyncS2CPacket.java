@@ -13,7 +13,7 @@ public class TemperatureDataSyncS2CPacket {
   }
 
   public TemperatureDataSyncS2CPacket(FriendlyByteBuf buf) {
-    this.temperature = buf.readFloat();
+    this.temperature = buf.readDouble();
   }
 
   public void toBytes(FriendlyByteBuf buf) {

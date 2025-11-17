@@ -3,14 +3,16 @@ package net.redfox.hardcorereimagined.event;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +20,9 @@ import net.minecraftforge.server.command.ConfigCommand;
 import net.redfox.hardcorereimagined.HardcoreReimagined;
 import net.redfox.hardcorereimagined.command.GetTemperature;
 import net.redfox.hardcorereimagined.command.SetTemperature;
-import net.redfox.hardcorereimagined.config.PublishedConfigValues;
+import net.redfox.hardcorereimagined.config.FormattedConfigValues;
+import net.redfox.hardcorereimagined.config.ModCommonConfigs;
+import net.redfox.hardcorereimagined.food.foodHistory.PlayerFoodHistory;
 import net.redfox.hardcorereimagined.food.foodHistory.PlayerFoodHistoryProvider;
 import net.redfox.hardcorereimagined.networking.ModPackets;
 import net.redfox.hardcorereimagined.networking.packet.EatFoodC2SPacket;
@@ -27,7 +31,10 @@ import net.redfox.hardcorereimagined.networking.packet.TemperatureDataSyncS2CPac
 import net.redfox.hardcorereimagined.symptom.ModSymptoms;
 import net.redfox.hardcorereimagined.temperature.PlayerTemperature;
 import net.redfox.hardcorereimagined.temperature.PlayerTemperatureProvider;
-import net.redfox.hardcorereimagined.util.HungerHelper;
+
+import java.util.Collections;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 public class ServerEvents {
   @Mod.EventBusSubscriber(modid = HardcoreReimagined.MOD_ID)
@@ -39,35 +46,28 @@ public class ServerEvents {
       if (!event.getItem().isEdible()) return;
 
       ModPackets.sendToServer(
-          new EatFoodC2SPacket(HungerHelper.getItemNameFromStack(event.getItem())));
-    }
-
-    @SubscribeEvent
-    public static void onPlayerRespawned(PlayerEvent.PlayerRespawnEvent event) {
-      Player player = event.getEntity();
-      player.setHealth(player.getMaxHealth() * 0.5F);
-      player.getFoodData().setFoodLevel((int) (20 * 0.5F));
+          new EatFoodC2SPacket(PlayerFoodHistory.getItemNameFromStack(event.getItem())));
     }
   }
 
   @Mod.EventBusSubscriber(modid = HardcoreReimagined.MOD_ID)
   public static class ServerAnimalEvents {
-    @SubscribeEvent
-    public static void onLivingEntitySpawn(MobSpawnEvent.FinalizeSpawn event) {
-      if (event.getEntity() instanceof Chicken chicken) {
-        chicken.eggTime =
-            chicken
-                    .level()
-                    .random
-                    .nextInt(
-                        PublishedConfigValues.EGG_COOLDOWN
-                            * PublishedConfigValues.EGG_COOLDOWN_MULTIPLIER.get(
-                                chicken.level().getDifficulty()))
-                + PublishedConfigValues.EGG_COOLDOWN
-                    * PublishedConfigValues.EGG_COOLDOWN_MULTIPLIER.get(
-                        chicken.level().getDifficulty());
-      }
-    }
+    //    @SubscribeEvent
+    //    public static void onLivingEntitySpawn(MobSpawnEvent.FinalizeSpawn event) {
+    //      if (event.getEntity() instanceof Chicken chicken) {
+    //        chicken.eggTime =
+    //            chicken
+    //                    .level()
+    //                    .random
+    //                    .nextInt(
+    //                        PublishedConfigValues.EGG_COOLDOWN
+    //                            * PublishedConfigValues.EGG_COOLDOWN_MULTIPLIER.get(
+    //                                chicken.level().getDifficulty()))
+    //                + PublishedConfigValues.EGG_COOLDOWN
+    //                    * PublishedConfigValues.EGG_COOLDOWN_MULTIPLIER.get(
+    //                        chicken.level().getDifficulty());
+    //      }
+    //    }
   }
 
   @Mod.EventBusSubscriber(modid = HardcoreReimagined.MOD_ID)
@@ -153,6 +153,41 @@ public class ServerEvents {
                         player);
                   });
         }
+      }
+    }
+  }
+
+  @Mod.EventBusSubscriber(modid = HardcoreReimagined.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+  public static class ServerConfigEvents {
+    @SubscribeEvent
+    public static void onPlayerLogIn(PlayerEvent.PlayerLoggedInEvent event) {
+      FormattedConfigValues.createSingleIntegerConfigValues(
+          ModCommonConfigs.BIOME_TEMPERATURES_VALUES.get(),
+          FormattedConfigValues.Temperature.BIOME_TEMPERATURES,
+          Biome.class);
+    }
+  }
+
+  @Mod.EventBusSubscriber(modid = HardcoreReimagined.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+  public static class ServerHealthEvents {
+    private static final Set<Entity> CANCEL_KNOCKBACK_SET = Collections.newSetFromMap(new WeakHashMap<>());
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+      if (event.getSource().getEntity() instanceof Player player) {
+        if (player.level().isClientSide()) {
+          return;
+        }
+        if (!(event.getEntity() instanceof Player)) {
+          if (player.getHealth() <= 6.0F) {
+            CANCEL_KNOCKBACK_SET.add(event.getEntity());
+          }
+        }
+      }
+    }
+    @SubscribeEvent
+    public static void onLivingKnockback(LivingKnockBackEvent event) {
+      if (CANCEL_KNOCKBACK_SET.remove(event.getEntity())) {
+        event.setCanceled(true);
       }
     }
   }

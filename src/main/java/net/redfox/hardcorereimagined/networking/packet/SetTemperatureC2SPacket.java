@@ -7,18 +7,18 @@ import net.minecraftforge.network.NetworkEvent;
 import net.redfox.hardcorereimagined.temperature.PlayerTemperatureProvider;
 
 public class SetTemperatureC2SPacket {
-  private final float temperature;
+  private final double temperature;
 
-  public SetTemperatureC2SPacket(float temperature) {
+  public SetTemperatureC2SPacket(double temperature) {
     this.temperature = temperature;
   }
 
   public SetTemperatureC2SPacket(FriendlyByteBuf buf) {
-    this.temperature = buf.readFloat();
+    this.temperature = buf.readDouble();
   }
 
   public void toBytes(FriendlyByteBuf buf) {
-    buf.writeFloat(temperature);
+    buf.writeDouble(temperature);
   }
 
   public boolean handle(Supplier<NetworkEvent.Context> supplier) {

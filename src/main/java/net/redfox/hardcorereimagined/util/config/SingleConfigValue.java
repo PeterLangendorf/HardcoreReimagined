@@ -1,19 +1,19 @@
 package net.redfox.hardcorereimagined.util.config;
 
-import java.util.ArrayList;
-import java.util.List;
-import net.redfox.hardcorereimagined.util.StringParser;
-
 public class SingleConfigValue<E> implements ConfigValue<E> {
-  private final List<E> values;
+  private final E value;
 
   public SingleConfigValue(String value, Class<E> clazz) {
-    this.values = new ArrayList<>();
-    values.set(0, StringParser.parse(clazz, value));
+    this.value = getValue(clazz, value);
   }
 
   @Override
   public boolean is(E value) {
-    return values.contains(value);
+    return this.value.equals(value);
+  }
+
+  @Override
+  public boolean isInvalid(Class<E> clazz) {
+    return this.value == null || this.value.equals(ConfigValue.NULL_VALUES.get(clazz));
   }
 }

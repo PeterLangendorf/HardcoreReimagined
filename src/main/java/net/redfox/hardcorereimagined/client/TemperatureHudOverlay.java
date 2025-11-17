@@ -59,7 +59,7 @@ public class TemperatureHudOverlay {
           HardcoreReimagined.MOD_ID, "textures/gui/temperature_gauge/14.png");
 
   public static void initialize() {
-    final String displayMode = ModClientConfigs.DISPLAY_MODE.get();
+    final String displayMode = ModClientConfigs.TEMP_DISPLAY_MODE.get();
     switch (displayMode) {
       case "GAUGE" -> readingEnabled = false;
       case "NUMBER" -> gaugeEnabled = false;
@@ -122,7 +122,7 @@ public class TemperatureHudOverlay {
       });
 
   private static ResourceLocation getTemperatureImage() {
-    float temperature = ClientTemperatureData.getPlayerTemperature();
+    double temperature = ClientTemperatureData.getPlayerTemperature();
 
     if (temperature > 200) return TEMPERATURE_14;
     if (isBetween(temperature, 170, 200)) return TEMPERATURE_13;
@@ -143,7 +143,7 @@ public class TemperatureHudOverlay {
     return TEMPERATURE_7;
   }
 
-  private static boolean isBetween(float compare, int min, int max) {
+  private static boolean isBetween(double compare, int min, int max) {
     return compare > min && compare <= max;
   }
 }
