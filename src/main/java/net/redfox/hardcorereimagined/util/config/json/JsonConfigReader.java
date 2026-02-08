@@ -566,6 +566,386 @@ public class JsonConfigReader {
                           .add("heat_resistance", 50)
                           .add("cold_resistance", -50)
                           .build())));
+  public static final Runnable CROP_NERF =
+      () ->
+          writeJsonFile(
+              getFilePathAsString("environment/crop_nerf"),
+              createDefaultJsonObject(
+                  createJsonArray(
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:wheat")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:meadow")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:cherry_grove")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:flower_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:birch_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:plains")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sunflower_plains")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:carrots")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:meadow")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:cherry_grove")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:flower_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:birch_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:plains")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sunflower_plains")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:potatoes")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:meadow")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:cherry_grove")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:flower_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:birch_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:plains")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sunflower_plains")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:beetroots")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:meadow")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:cherry_grove")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:flower_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:birch_forest")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:plains")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sunflower_plains")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:pumpkin_stem")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:bamboo_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:savanna")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:savanna_plateau")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:windswept_savanna")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:melon_stem")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:bamboo_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:savanna")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:savanna_plateau")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:windswept_savanna")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:bamboo")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:bamboo_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:cocoa")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:sparse_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:bamboo_jungle")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:sugar_cane")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:river")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:swamp")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:beach")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:savanna")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:savanna_plateau")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:windswept_savanna")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:sweet_berry_bush")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:taiga")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:old_growth_pine_taiga")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:old_growth_spruce_taiga")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:cactus")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:desert")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:badlands")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:eroded_badlands")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:kelp")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:ocean")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:deep_ocean")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:warm_ocean")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:lukewarm_ocean")
+                                      .add("multiplier", 0.5)
+                                      .build(),
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:deep_lukewarm_ocean")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:cave_vines")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "minecraft:lush_caves")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build(),
+                      new JsonObjectBuilder()
+                          .add("crop", "minecraft:nether_wart")
+                          .add("default_multiplier", 0.1)
+                          .add(
+                              "biome_overrides",
+                              createJsonArray(
+                                  new JsonObjectBuilder()
+                                      .add("biome", "#minecraft:is_nether")
+                                      .add("multiplier", 0.5)
+                                      .build()))
+                          .build())));
 
   public static JsonObject getOrCreateJsonFile(String fileName, Runnable create) {
     if (!new File(fileName).exists()) create.run();
@@ -646,6 +1026,8 @@ public class JsonConfigReader {
           jsonObject.addProperty(this.keys.get(i), n);
         } else if (value instanceof Boolean b) {
           jsonObject.addProperty(this.keys.get(i), b);
+        } else if (value instanceof JsonElement e) {
+          jsonObject.add(this.keys.get(i), e);
         }
       }
 

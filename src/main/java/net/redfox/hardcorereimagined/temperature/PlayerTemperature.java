@@ -26,7 +26,7 @@ import oshi.util.tuples.Pair;
 
 @AutoRegisterCapability
 public class PlayerTemperature {
-  public static final double DEFAULT_BIOME_TEMPERATURE = 0D;
+  public static final double DEFAULT_BIOME_TEMPERATURE = 0;
   public static final JsonArray JSON_BIOME_TEMPERATURES =
       JsonConfigReader.getOrCreateJsonFile("temperature/biomes", JsonConfigReader.BIOMES)
           .get("values")
@@ -169,16 +169,16 @@ public class PlayerTemperature {
               .filter(
                   value ->
                       value
-                          .getAsJsonObject()
-                          .get("block")
-                          .getAsString()
-                          .equals(
-                              insideBlock
-                                  .getBlockHolder()
-                                  .unwrapKey()
-                                  .get()
-                                  .location()
-                                  .toString())
+                              .getAsJsonObject()
+                              .get("block")
+                              .getAsString()
+                              .equals(
+                                  insideBlock
+                                      .getBlockHolder()
+                                      .unwrapKey()
+                                      .get()
+                                      .location()
+                                      .toString())
                           && value.getAsJsonObject().get("boots").getAsBoolean())
               .findFirst()
               .ifPresent(
@@ -196,11 +196,16 @@ public class PlayerTemperature {
               .filter(
                   value ->
                       value
-                          .getAsJsonObject()
-                          .get("block")
-                          .getAsString()
-                          .equals(
-                              blockBelow.getBlockHolder().unwrapKey().get().location().toString())
+                              .getAsJsonObject()
+                              .get("block")
+                              .getAsString()
+                              .equals(
+                                  blockBelow
+                                      .getBlockHolder()
+                                      .unwrapKey()
+                                      .get()
+                                      .location()
+                                      .toString())
                           && value.getAsJsonObject().get("boots").getAsBoolean())
               .findFirst()
               .ifPresent(
@@ -220,11 +225,11 @@ public class PlayerTemperature {
             .filter(
                 value ->
                     value
-                        .getAsJsonObject()
-                        .get("block")
-                        .getAsString()
-                        .equals(
-                            blockBelow.getBlockHolder().unwrapKey().get().location().toString())
+                            .getAsJsonObject()
+                            .get("block")
+                            .getAsString()
+                            .equals(
+                                blockBelow.getBlockHolder().unwrapKey().get().location().toString())
                         && !value.getAsJsonObject().get("boots").getAsBoolean())
             .findFirst()
             .ifPresent(
@@ -244,11 +249,16 @@ public class PlayerTemperature {
             .filter(
                 value ->
                     value
-                        .getAsJsonObject()
-                        .get("block")
-                        .getAsString()
-                        .equals(
-                            insideBlock.getBlockHolder().unwrapKey().get().location().toString())
+                            .getAsJsonObject()
+                            .get("block")
+                            .getAsString()
+                            .equals(
+                                insideBlock
+                                    .getBlockHolder()
+                                    .unwrapKey()
+                                    .get()
+                                    .location()
+                                    .toString())
                         && !value.getAsJsonObject().get("boots").getAsBoolean())
             .findFirst()
             .ifPresent(

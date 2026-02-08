@@ -46,36 +46,29 @@ public class ServerEvents {
 
   @Mod.EventBusSubscriber(modid = HardcoreReimagined.MOD_ID)
   public static class ServerEnvironmentEvents {
-    @SubscribeEvent
-    public static void onCropGrowth(BlockEvent.CropGrowEvent event) {
-      //      if (event.getState().is(Blocks.WATER) || event.getState().is(Blocks.AIR)) return;
-      //
-      //      // This is bad! Shouldn't round to an int
-      //      int successChance =
-      //          FormattedConfigValues.EnvironmentNerf.CROP_GROWTH_DIFFICULTY_MULTIPLIER
-      //              .get(event.getLevel().getDifficulty())
-      //              .intValue();
-      //      boolean inBiome = true;
-      //      for (ConfigValue<Block> configValue :
-      //          FormattedConfigValues.EnvironmentNerf.CROP_GROWTH_BIOME_MULTIPLIER.keySet()) {
-      //        if (configValue.is(event.getState().getBlock())) {
-      //          inBiome = false;
-      //          for (ConfigValue<Biome> biomeConfigValue :
-      //
-      // FormattedConfigValues.EnvironmentNerf.CROP_GROWTH_BIOME_MULTIPLIER.get(configValue)) {
-      //            if (biomeConfigValue.is(event.getLevel().getBiome(event.getPos()).get())) {
-      //              inBiome = true;
-      //            }
-      //          }
-      //        }
-      //      }
-      //      if (!inBiome) {
-      //        event.setResult(Event.Result.DENY);
-      //      } else if (event.getLevel().getRandom().nextIntBetweenInclusive(1, successChance) !=
-      // 1) {
-      //        event.setResult(Event.Result.DENY);
-      //      }
-    }
+//    @SubscribeEvent
+//    public static void onCropGrowth(BlockEvent.CropGrowEvent event) {
+//        boolean inBiome = true;
+//        for (ConfigValue<Block> configValue :
+//            FormattedConfigValues.EnvironmentNerf.CROP_GROWTH_BIOME_MULTIPLIER.keySet()) {
+//          if (configValue.is(event.getState().getBlock())) {
+//            inBiome = false;
+//            for (ConfigValue<Biome> biomeConfigValue :
+//
+//   FormattedConfigValues.EnvironmentNerf.CROP_GROWTH_BIOME_MULTIPLIER.get(configValue)) {
+//              if (biomeConfigValue.is(event.getLevel().getBiome(event.getPos()).get())) {
+//                inBiome = true;
+//              }
+//            }
+//          }
+//        }
+//        if (!inBiome) {
+//          event.setResult(Event.Result.DENY);
+//        } else if (event.getLevel().getRandom().nextIntBetweenInclusive(1, successChance) !=
+//   1) {
+//          event.setResult(Event.Result.DENY);
+//        }
+//    }
     //    @SubscribeEvent
     //    public static void onLivingEntitySpawn(MobSpawnEvent.FinalizeSpawn event) {
     //      if (event.getEntity() instanceof Chicken chicken) {

@@ -16,7 +16,6 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<List<String>> BREEDING_COOLDOWN_MULTIPLIERS;
   public static final ForgeConfigSpec.ConfigValue<List<String>> EGG_TIME_MODIFIERS;
   public static final ForgeConfigSpec.ConfigValue<List<String>> CROP_GROWTH_DIFFICULTY_MULTIPLIERS;
-  public static final ForgeConfigSpec.ConfigValue<List<String>> CROP_GROWTH_BIOME_MULTIPLIERS;
   public static final ForgeConfigSpec.ConfigValue<List<String>> GLOBAL_HUNGER_MULTIPLIERS;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HEALTH_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HUNGER_MULTIPLIER;
@@ -101,157 +100,163 @@ public class ModCommonConfigs {
       BUILDER.pop();
       BUILDER.push("temperature");
       {
-        TEMPERATURE_FLUCTUATION = BUILDER
-            .comment("If true, enables global temperature fluctuation.")
-            .define("temperature_fluctuation", true);
+        TEMPERATURE_FLUCTUATION =
+            BUILDER
+                .comment("If true, enables global temperature fluctuation.")
+                .define("temperature_fluctuation", true);
 
         BUILDER.push("biomes");
         {
-          BIOME_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on biomes.")
-              .define("biome_temperature_enabled", true);
+          BIOME_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on biomes.")
+                  .define("biome_temperature_enabled", true);
 
-          BUILDER.comment("Biomes can be modified in the JSON file at /hardcorereimagined/temperature/biomes.json");
+          BUILDER.comment(
+              "Biomes can be modified in the JSON file at /hardcorereimagined/temperature/biomes.json");
         }
         BUILDER.pop();
 
         BUILDER.push("insulators");
         {
-          BLOCK_INSULATOR_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on block insulators.")
-              .define("block_insulator_temperature_enabled", true);
+          BLOCK_INSULATOR_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on block insulators.")
+                  .define("block_insulator_temperature_enabled", true);
 
-          BUILDER.comment("Block insulators can be modified in the JSON file at /hardcorereimagined/temperature/insulators.json");
+          BUILDER.comment(
+              "Block insulators can be modified in the JSON file at /hardcorereimagined/temperature/insulators.json");
         }
         BUILDER.pop();
 
         BUILDER.push("inside_blocks");
         {
-          INSIDE_BLOCK_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on inside blocks.")
-              .define("inside_block_temperature_enabled", true);
+          INSIDE_BLOCK_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on inside blocks.")
+                  .define("inside_block_temperature_enabled", true);
 
-          BUILDER.comment("Inside blocks can be modified in the JSON file at /hardcorereimagined/temperature/inside_blocks.json");
+          BUILDER.comment(
+              "Inside blocks can be modified in the JSON file at /hardcorereimagined/temperature/inside_blocks.json");
         }
         BUILDER.pop();
 
         BUILDER.push("on_top_blocks");
         {
-          ON_TOP_BLOCK_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on on-top blocks.")
-              .define("on_top_block_temperature_enabled", true);
+          ON_TOP_BLOCK_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on on-top blocks.")
+                  .define("on_top_block_temperature_enabled", true);
 
-          BUILDER.comment("On-top blocks can be modified in the JSON file at /hardcorereimagined/temperature/on_top_blocks.json");
+          BUILDER.comment(
+              "On-top blocks can be modified in the JSON file at /hardcorereimagined/temperature/on_top_blocks.json");
         }
         BUILDER.pop();
 
         BUILDER.push("weather");
         {
-          WEATHER_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on weather.")
-              .define("weather_temperature_enabled", true);
+          WEATHER_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on weather.")
+                  .define("weather_temperature_enabled", true);
 
-          RAIN_TEMPERATURE = BUILDER
-              .comment("The temperature that is applied when exposed to rain")
-              .define("rain_temperature", -30);
+          RAIN_TEMPERATURE =
+              BUILDER
+                  .comment("The temperature that is applied when exposed to rain")
+                  .define("rain_temperature", -30);
 
-          SNOW_TEMPERATURE = BUILDER
-              .comment("The temperature that is applied when exposed to snow")
-              .define("snow_temperature", -60);
+          SNOW_TEMPERATURE =
+              BUILDER
+                  .comment("The temperature that is applied when exposed to snow")
+                  .define("snow_temperature", -60);
         }
         BUILDER.pop();
 
         BUILDER.push("time");
         {
-          TIME_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on time.")
-              .define("time_temperature_enabled", true);
+          TIME_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on time.")
+                  .define("time_temperature_enabled", true);
 
-          DAY_TEMPERATURE = BUILDER
-              .comment("The temperature that is applied when it is daytime")
-              .define("day_temperature", 10);
+          DAY_TEMPERATURE =
+              BUILDER
+                  .comment("The temperature that is applied when it is daytime")
+                  .define("day_temperature", 10);
 
-          NIGHT_TEMPERATURE = BUILDER
-              .comment("The temperature that is applied when it is nighttime")
-              .define("night_temperature", -10);
+          NIGHT_TEMPERATURE =
+              BUILDER
+                  .comment("The temperature that is applied when it is nighttime")
+                  .define("night_temperature", -10);
         }
         BUILDER.pop();
 
         BUILDER.push("fire");
         {
-          FIRE_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on fire.")
-              .define("fire_temperature_enabled", true);
+          FIRE_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on fire.")
+                  .define("fire_temperature_enabled", true);
 
-          FIRE_TEMPERATURE = BUILDER
-              .comment("The temperature that is applied when the player is on fire")
-              .defineInRange("fire_temperature", 50, 1, Integer.MAX_VALUE);
+          FIRE_TEMPERATURE =
+              BUILDER
+                  .comment("The temperature that is applied when the player is on fire")
+                  .defineInRange("fire_temperature", 50, 1, Integer.MAX_VALUE);
         }
         BUILDER.pop();
 
         BUILDER.push("altitude");
         {
-          ALTITUDE_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on altitude.")
-              .define("altitude_temperature_enabled", true);
+          ALTITUDE_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on altitude.")
+                  .define("altitude_temperature_enabled", true);
 
-          UPPER_ALTITUDE = BUILDER
-              .comment("The upwards y-value when temperature will start changing")
-              .define("upper_altitude", 80);
+          UPPER_ALTITUDE =
+              BUILDER
+                  .comment("The upwards y-value when temperature will start changing")
+                  .define("upper_altitude", 80);
 
-          UPPER_MULTIPLIER = BUILDER
-              .comment("The amount of blocks that result in a change of 1 temperature")
-              .comment("For example, a value of 5 means that every 5 blocks traveled after the start will change your temperature by 1")
-              .defineInRange("upper_multiplier", 5, 1, 128d);
+          UPPER_MULTIPLIER =
+              BUILDER
+                  .comment("The amount of blocks that result in a change of 1 temperature")
+                  .comment(
+                      "For example, a value of 5 means that every 5 blocks traveled after the start will change your temperature by 1")
+                  .defineInRange("upper_multiplier", 5, 1, 128d);
 
-          LOWER_ALTITUDE = BUILDER
-              .comment("The downwards y-value when temperature will start changing")
-              .define("lower_altitude", 40);
+          LOWER_ALTITUDE =
+              BUILDER
+                  .comment("The downwards y-value when temperature will start changing")
+                  .define("lower_altitude", 40);
 
-          LOWER_MULTIPLIER = BUILDER
-              .comment("The amount of blocks that result in a change of 1 temperature")
-              .comment("For example, a value of 5 means that every 5 blocks traveled after the start will change your temperature by 1")
-              .defineInRange("lower_multiplier", 5, 1, 128d);
+          LOWER_MULTIPLIER =
+              BUILDER
+                  .comment("The amount of blocks that result in a change of 1 temperature")
+                  .comment(
+                      "For example, a value of 5 means that every 5 blocks traveled after the start will change your temperature by 1")
+                  .defineInRange("lower_multiplier", 5, 1, 128d);
         }
         BUILDER.pop();
 
         BUILDER.push("armor_insulators");
         {
-          ARMOR_INSULATOR_TEMPERATURE_ENABLED = BUILDER
-              .comment("If true, enables temperature fluctuation based on armor insulators.")
-              .define("armor_insulator_temperature_enabled", true);
+          ARMOR_INSULATOR_TEMPERATURE_ENABLED =
+              BUILDER
+                  .comment("If true, enables temperature fluctuation based on armor insulators.")
+                  .define("armor_insulator_temperature_enabled", true);
 
-          BUILDER.comment("Armor insulators can be modified in the JSON file at /hardcorereimagined/temperature/armor_insulators.json");
+          BUILDER.comment(
+              "Armor insulators can be modified in the JSON file at /hardcorereimagined/temperature/armor_insulators.json");
         }
         BUILDER.pop();
       }
       BUILDER.pop();
       BUILDER.push("environment_nerf");
       {
-        BUILDER.push("crops");
-        {
-          CROP_GROWTH_DIFFICULTY_MULTIPLIERS =
-              BUILDER
-                  .comment("The modifier for the growth time of crops depending on difficulty.")
-                  .define("cropGrowthDifficultyMultiplier", DEFAULT_DIFFICULTY_MULTIPLIER);
-          CROP_GROWTH_BIOME_MULTIPLIERS =
-              BUILDER
-                  .comment("The modifier for the growth time of crops depending on biome.")
-                  .define(
-                      "cropGrowthBiomeMultiplier",
-                      new ArrayList<>(
-                          List.of(
-                              "[minecraft:wheat,minecraft:carrots,minecraft:potatoes,minecraft:beetroots],[minecraft:meadow,minecraft:cherry_grove,minecraft:flower_forest,minecraft:forest,minecraft:birch_forest,minecraft:sparse_jungle,minecraft:plains,minecraft:sunflower_plains]",
-                              "[minecraft:pumpkin_stem,minecraft:melon_stem],[minecraft:sparse_jungle,minecraft:jungle,minecraft:bamboo_jungle,minecraft:savanna,minecraft:savanna_plateau,minecraft:windswept_savanna]",
-                              "[minecraft:bamboo,minecraft:cocoa],[minecraft:jungle,minecraft:sparse_jungle,minecraft:bamboo_jungle]",
-                              "minecraft:sugar_cane,[minecraft:river,minecraft:swamp,minecraft:beach,minecraft:savanna,minecraft:savanna_plateau,minecraft:windswept_savanna]",
-                              "minecraft:sweet_berry_bush,[minecraft:taiga,minecraft:old_growth_pine_taiga,minecraft:old_growth_spruce_taiga]",
-                              "minecraft:cactus,[minecraft:desert,minecraft:badlands,minecraft:eroded_badlands]",
-                              "minecraft:kelp,[minecraft:ocean,minecraft:deep_ocean,minecraft:warm_ocean,minecraft:lukewarm_ocean,minecraft:deep_lukewarm_ocean]",
-                              "minecraft:cave_vines,minecraft:lush_caves",
-                              "minecraft:nether_wart,#minecraft:is_nether")));
-        }
-        BUILDER.pop();
+        CROP_GROWTH_DIFFICULTY_MULTIPLIERS =
+            BUILDER
+                .comment("The modifier for the growth time of crops depending on difficulty.")
+                .define("cropGrowthDifficultyMultiplier", DEFAULT_DIFFICULTY_MULTIPLIER);
         BABY_GROWTH_MODIFIERS =
             BUILDER
                 .comment("The modifier for the growth time of baby animals.")
@@ -462,6 +467,5 @@ public class ModCommonConfigs {
       BUILDER.pop();
       SPEC = BUILDER.build();
     }
-    BUILDER.pop();
   }
 }

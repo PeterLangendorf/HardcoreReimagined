@@ -13,6 +13,7 @@ import net.redfox.hardcorereimagined.config.FormattedConfigValues;
 import net.redfox.hardcorereimagined.config.ModClientConfigs;
 import net.redfox.hardcorereimagined.config.ModCommonConfigs;
 import net.redfox.hardcorereimagined.effect.ModEffects;
+import net.redfox.hardcorereimagined.environment.CropNerf;
 import net.redfox.hardcorereimagined.event.AppleSkinEvents;
 import net.redfox.hardcorereimagined.food.FoodNerf;
 import net.redfox.hardcorereimagined.networking.ModPackets;
@@ -34,6 +35,7 @@ public class HardcoreReimagined {
     ModEffects.register(modEventBus);
 
     modEventBus.addListener(this::commonSetup);
+    MinecraftForge.EVENT_BUS.addListener(CropNerf::onCropGrowth);
     MinecraftForge.EVENT_BUS.register(this);
 
     if (ModList.get().isLoaded("appleskin")) {
