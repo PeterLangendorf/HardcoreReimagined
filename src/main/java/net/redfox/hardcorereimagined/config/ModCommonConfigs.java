@@ -17,6 +17,7 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<List<String>> EGG_TIME_MODIFIERS;
   public static final ForgeConfigSpec.ConfigValue<List<String>> CROP_GROWTH_DIFFICULTY_MULTIPLIERS;
   public static final ForgeConfigSpec.ConfigValue<List<String>> GLOBAL_HUNGER_MULTIPLIERS;
+  public static final ForgeConfigSpec.ConfigValue<Float> PASSIVE_EXHAUSTION;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HEALTH_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HUNGER_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Integer> EGG_COOLDOWN;
@@ -271,6 +272,7 @@ public class ModCommonConfigs {
             BUILDER
                 .comment("The modifier for the egg laying cooldown of chickens.")
                 .define("eggCooldownMultiplier", DEFAULT_DIFFICULTY_MULTIPLIER);
+        PASSIVE_EXHAUSTION = BUILDER.comment("The exhaustion that is applied passively to the character.").define("passiveExhaustion", 0.00025f);
       }
       BUILDER.pop();
       BUILDER.push("food");
