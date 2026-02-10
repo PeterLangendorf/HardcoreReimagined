@@ -272,7 +272,10 @@ public class ModCommonConfigs {
             BUILDER
                 .comment("The modifier for the egg laying cooldown of chickens.")
                 .define("eggCooldownMultiplier", DEFAULT_DIFFICULTY_MULTIPLIER);
-        PASSIVE_EXHAUSTION = BUILDER.comment("The exhaustion that is applied passively to the character.").define("passiveExhaustion", 0.00025f);
+        PASSIVE_EXHAUSTION =
+            BUILDER
+                .comment("The exhaustion that is applied passively to the character.")
+                .define("passiveExhaustion", 0.00025f);
       }
       BUILDER.pop();
       BUILDER.push("food");

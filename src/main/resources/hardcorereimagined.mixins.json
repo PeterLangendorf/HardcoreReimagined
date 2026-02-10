@@ -2,13 +2,18 @@
   "required": true,
   "minVersion": "0.8",
   "package": "net.redfox.hardcorereimagined.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "hardcorereimagined.refmap.json",
+  "plugin": "net.redfox.hardcorereimagined.util.config.MixinConfig",
   "mixins": [
-    "BoneMealCropBlockMixin",
-    "PlayerMixin",
-    "ChickenMixin",
-    "FoodDataMixin"
+    "environment.BabyAgeMixin",
+    "environment.BoneMealMixin",
+    "environment.BreedingTimeMixin",
+    "environment.EggMixin",
+    "food.FoodHistoryMixin",
+    "food.GlobalHungerMultiplierMixin",
+    "food.InstantStarveMixin",
+    "food.PassiveHungerLossMixin"
   ],
   "client": [
   ],
