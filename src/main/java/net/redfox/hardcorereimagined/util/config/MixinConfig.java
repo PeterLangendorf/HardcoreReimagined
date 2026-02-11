@@ -20,10 +20,7 @@ public class MixinConfig implements IMixinConfigPlugin {
 
   @Override
   public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-    if (mixinClassName.equals("net.redfox.hardcorereimagined.mixin.environment.EggMixin")) {
-      return ModCommonConfigs.FOOD_HISTORY_ENABLED.get();
-    }
-    return false;
+    return true;
   }
 
   @Override
@@ -35,9 +32,7 @@ public class MixinConfig implements IMixinConfigPlugin {
   }
 
   @Override
-  public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-    ChickenNerf.init();
-  }
+  public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
 
   @Override
   public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}

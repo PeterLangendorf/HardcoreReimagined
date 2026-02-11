@@ -6,27 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Difficulty;
+import net.redfox.hardcorereimagined.config.ModCommonConfigs;
+import net.redfox.hardcorereimagined.util.config.StringParsingUtil;
 import net.redfox.hardcorereimagined.util.config.json.JsonConfigReader;
 
 public class ChickenNerf {
   private static final Map<Difficulty, Double> DIFFICULTY_MULTIPLIERS = new HashMap<>();
-  private static final JsonObject JSON_DIFFICULTY_MULTIPLIERS =
-      JsonConfigReader.getOrCreateJsonFile("environment/chickens", JsonConfigReader.CHICKEN_CONFIG)
-          .get("values")
-          .getAsJsonObject();
   private static double cooldown;
 
   public static void init() {
-    cooldown =
-        JSON_DIFFICULTY_MULTIPLIERS.get("egg_cooldown").getAsDouble();
-    for (JsonElement element : JSON_DIFFICULTY_MULTIPLIERS.get("difficulty_multipliers").getAsJsonArray()) {
-      Difficulty difficulty =
-          Difficulty.byName(element.getAsJsonObject().get("difficulty").getAsString());
-      if (difficulty == null) continue;
-      DIFFICULTY_MULTIPLIERS.put(
-          difficulty, element.getAsJsonObject().get("multiplier").getAsDouble());
-    }
+    cooldown = ModCommonConfigs.EGG_COOLDOWN.get();
+    StringParsingUtil.fillMap(DIFFICULTY_MULTIPLIERS, ModCommonConfigs.EGG_TIME_MODIFIERS.get(), Difficulty::byName, Double::parseDouble);
   }
 
   public static int getCooldown(Difficulty difficulty) {

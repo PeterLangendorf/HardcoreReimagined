@@ -84,16 +84,6 @@ public class FormattedConfigValues {
         FoodNerf.FOOD_MODIFICATIONS.put(item, FoodCategory.getFromString(split[1]));
       }
     }
-    for (String entry : ModCommonConfigs.CROP_GROWTH_DIFFICULTY_MULTIPLIERS.get()) {
-      String[] split = entry.split(":");
-      if (Arrays.stream(Difficulty.values())
-          .anyMatch(element -> element.getKey().equals(split[0].toLowerCase()))) {
-        EnvironmentNerf.CROP_GROWTH_DIFFICULTY_MULTIPLIER.put(
-            Difficulty.valueOf(split[0]), Double.parseDouble(split[1]));
-      } else {
-        HardcoreReimagined.LOGGER.warn("Failed to load {}", split[0]);
-      }
-    }
 
     logLoadedSkippedInvalidDuplicates();
   }

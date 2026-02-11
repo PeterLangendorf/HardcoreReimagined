@@ -7,7 +7,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ModCommonConfigs {
   private static final ArrayList<String> DEFAULT_DIFFICULTY_MULTIPLIER =
-      new ArrayList<>(Arrays.asList("EASY:2", "NORMAL:4", "HARD:8", "PEACEFUL:1"));
+      new ArrayList<>(Arrays.asList("easy:2", "normal:4", "hard:8", "peaceful:1"));
 
   public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
   public static final ForgeConfigSpec SPEC;
@@ -55,50 +55,9 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<List<Double>> NUTRITION_DECAY;
   public static final ForgeConfigSpec.ConfigValue<Integer> MAX_HISTORY;
 
-  public static final ForgeConfigSpec.ConfigValue<Boolean> GLOBAL_TEMPERATURE_TOGGLE;
-  public static final ForgeConfigSpec.ConfigValue<Boolean> GLOBAL_ENVIRONMENT_NERF_TOGGLE;
-  public static final ForgeConfigSpec.ConfigValue<Boolean> GLOBAL_FOOD_NERF_TOGGLE;
-  public static final ForgeConfigSpec.ConfigValue<Boolean> GLOBAL_HEALTH_TOGGLE;
-
   static {
     BUILDER.push("common");
     {
-      BUILDER.push("modules");
-      {
-        GLOBAL_TEMPERATURE_TOGGLE =
-            BUILDER
-                .comment("Global toggle for the temperature module")
-                .comment("This includes:")
-                .comment("  -The temperature bubble, data, and symptoms")
-                .define("global_temperature_toggle", true);
-        GLOBAL_ENVIRONMENT_NERF_TOGGLE =
-            BUILDER
-                .comment("Global toggle for the environment nerf module")
-                .comment("This includes:")
-                .comment("  -Increased animal breeding cooldown")
-                .comment("  -Increased chicken egg laying cooldown")
-                .comment("  -Increased baby age timer")
-                .comment("  -Increased crop growth time")
-                .comment("  -Crop growth depending on daytime")
-                .comment("  -Crop growth depending on biome")
-                .define("global_environment_nerf", true);
-        GLOBAL_FOOD_NERF_TOGGLE =
-            BUILDER
-                .comment("Global toggle for the food nerf module")
-                .comment("This includes:")
-                .comment(
-                    "  -Greatly reduce the nutrition value and saturation of every food in Minecraft")
-                .comment("  -The decaying food values of each food as you eat it more")
-                .define("global_food_nerf_toggle", true);
-        GLOBAL_HEALTH_TOGGLE =
-            BUILDER
-                .comment("Global toggle for the health nerf module")
-                .comment("This includes:")
-                .comment("  -Symptoms when low on hunger or health")
-                .comment("  -Custom health and hunger on respawn")
-                .define("global_health_toggle", true);
-      }
-      BUILDER.pop();
       BUILDER.push("temperature");
       {
         TEMPERATURE_FLUCTUATION =
@@ -252,7 +211,7 @@ public class ModCommonConfigs {
         BUILDER.pop();
       }
       BUILDER.pop();
-      BUILDER.push("environment_nerf");
+      BUILDER.push("environment");
       {
         CROP_GROWTH_DIFFICULTY_MULTIPLIERS =
             BUILDER
@@ -286,7 +245,7 @@ public class ModCommonConfigs {
                     "The global hunger multiplier. Every single action's hunger loss will be multiplied by this.")
                 .define(
                     "globalHungerMultiplier",
-                    new ArrayList<>(Arrays.asList("EASY:1.5", "NORMAL:2", "HARD:3", "PEACEFUL:1")));
+                    new ArrayList<>(Arrays.asList("easy:1.5", "normal:2", "hard:3", "peaceful:1")));
         BUILDER.push("overrides");
         {
           FOOD_MODIFICATION_ENABLED =

@@ -22,7 +22,7 @@ public abstract class EggMixin {
 
   @Redirect(method = "aiStep", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/animal/Chicken;eggTime:I", opcode = Opcodes.PUTFIELD), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Chicken;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V")))
   private void modifyEggTime(Chicken instance, int value) {
-    instance.eggTime = 20;
+    instance.eggTime = ChickenNerf.getCooldown(instance.level().getDifficulty());
   }
 
   @Inject(method = "<init>", at = @At("RETURN"))
