@@ -1,0 +1,34 @@
+package net.redfox.survivaloverhaul.command;
+
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.redfox.survivaloverhaul.networking.ModPackets;
+import net.redfox.survivaloverhaul.networking.packet.SetTemperatureC2SPacket;
+
+public class SetTemperature {
+  public SetTemperature(CommandDispatcher<CommandSourceStack> dispatcher) {
+    dispatcher.register(
+        Commands.literal("temperature")
+            .requires(commandSource -> commandSource.hasPermission(2))
+            .then(
+                Commands.literal("set")
+                    .then(
+                        Commands.argument("value", DoubleArgumentType.doubleArg())
+                            .executes(SetTemperature::setTemperature))));
+  }
+
+  private static int setTemperature(CommandContext<CommandSourceStack> context) {
+    double value = DoubleArgumentType.getDouble(context, "value");
+    if (context.getSource().getPlayer() != null)
+      context
+          .getSource()
+          .getPlayer()
+          .sendSystemMessage(Component.literal("Set current temperature to: " + value));
+    ModPackets.sendToServer(new SetTemperatureC2SPacket(value));
+    return 1;
+  }
+}
