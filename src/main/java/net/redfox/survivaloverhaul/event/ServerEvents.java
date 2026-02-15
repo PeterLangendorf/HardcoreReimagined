@@ -19,6 +19,7 @@ import net.minecraftforge.server.command.ConfigCommand;
 import net.redfox.survivaloverhaul.SurvivalOverhaul;
 import net.redfox.survivaloverhaul.command.GetTemperature;
 import net.redfox.survivaloverhaul.command.SetTemperature;
+import net.redfox.survivaloverhaul.config.ModCommonConfigs;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistory;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistoryProvider;
 import net.redfox.survivaloverhaul.networking.ModPackets;
@@ -154,6 +155,12 @@ public class ServerEvents {
       if (CANCEL_KNOCKBACK_SET.remove(event.getEntity())) {
         event.setCanceled(true);
       }
+    }
+
+    @SubscribeEvent
+    public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
+      event.getEntity().setHealth((int) (event.getEntity().getMaxHealth() * ModCommonConfigs.SPAWN_HEALTH_MULTIPLIER.get()));
+      event.getEntity().getFoodData().setFoodLevel((int) (event.getEntity().getFoodData().getFoodLevel() * ModCommonConfigs.SPAWN_HUNGER_MULTIPLIER.get()));
     }
   }
 }

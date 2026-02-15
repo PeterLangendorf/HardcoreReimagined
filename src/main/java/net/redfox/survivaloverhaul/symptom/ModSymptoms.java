@@ -16,7 +16,7 @@ public class ModSymptoms {
     int weaknessAmplifier = -1;
     int nauseaAmplifier = -1;
 
-    if (health <= 10) {
+    if (health <= 9) {
       slownessAmplifier++;
     }
     if (health <= 6) {

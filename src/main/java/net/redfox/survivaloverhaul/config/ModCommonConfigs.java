@@ -7,7 +7,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ModCommonConfigs {
   private static final ArrayList<String> DEFAULT_DIFFICULTY_MULTIPLIER =
-      new ArrayList<>(Arrays.asList("easy:2", "normal:4", "hard:8", "peaceful:1"));
+      new ArrayList<>(Arrays.asList("peaceful:1", "easy:2", "normal:4", "hard:8"));
 
   public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
   public static final ForgeConfigSpec SPEC;
@@ -213,9 +213,9 @@ public class ModCommonConfigs {
         BUILDER.push("bone_meal");
         {
           BONE_MEAL_UPPER_LIMIT = BUILDER.comment("The upper limit for the amount of ticks a piece of bone meal can accelerate a plant growth, depending on difficulty.")
-              .defineList("boneMealUpperLimit", new ArrayList<>(Arrays.asList("PEACEFUL:5", "EASY:4", "MEDIUM:2", "HARD:0")), obj -> obj instanceof String);
+              .defineList("boneMealUpperLimit", new ArrayList<>(Arrays.asList("peaceful:5", "easy:4", "normal:2", "hard:0")), obj -> obj instanceof String);
           BONE_MEAL_LOWER_LIMIT = BUILDER.comment("The lower limit for the amount of ticks a piece of bone meal can accelerate a plant growth, depending on difficulty.")
-              .defineList("boneMealLowerLimit", new ArrayList<>(Arrays.asList("PEACEFUL:2", "EASY:1", "MEDIUM:0", "HARD:0")), obj -> obj instanceof String);
+              .defineList("boneMealLowerLimit", new ArrayList<>(Arrays.asList("peaceful:2", "esay:1", "normal:0", "hard:0")), obj -> obj instanceof String);
         }
         BUILDER.pop();
         BABY_GROWTH_MODIFIERS =
@@ -246,7 +246,7 @@ public class ModCommonConfigs {
                     "The global hunger multiplier. Every single action's hunger loss will be multiplied by this.")
                 .defineList(
                     "globalHungerMultiplier",
-                    new ArrayList<>(Arrays.asList("easy:1.5", "normal:2", "hard:3", "peaceful:1")), obj -> obj instanceof String);
+                    new ArrayList<>(Arrays.asList("peaceful:1", "easy:1.5", "normal:2", "hard:3")), obj -> obj instanceof String);
         BUILDER.push("overrides");
         {
           FOOD_MODIFICATION_ENABLED =

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Player.class)
 public abstract class FoodHistoryMixin {
-  @Redirect(method = "eat", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;eat(Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V"), remap = false)
+  @Redirect(method = "eat(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;eat(Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V"))
   private void modifyFoodStats(FoodData instance, Item item, ItemStack stack, LivingEntity entity) {
     final double multiplier = PlayerFoodHistory.getMultiplierAndSum(ClientFoodHistoryData.get(), PlayerFoodHistory.getItemNameFromStack(stack)).getB();
     if (item.isEdible()) {

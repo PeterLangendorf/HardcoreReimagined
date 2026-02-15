@@ -34,11 +34,11 @@ public class ConfigUtil {
   }
 
   public static int getBreedingCooldown(Difficulty difficulty) {
-    return 6000 * BREEDING_MULTIPLIERS.getOrDefault(difficulty, 1.0).intValue();
+    return (int) (6000 * BREEDING_MULTIPLIERS.getOrDefault(difficulty, 1.0));
   }
 
-  public static int getBabyAgeMultiplier(Difficulty difficulty) {
-    return 6000 * BABY_AGE_MULTIPLIERS.getOrDefault(difficulty, 1d).intValue();
+  public static int getBabyAge(Difficulty difficulty) {
+    return (int) (24000 * BABY_AGE_MULTIPLIERS.getOrDefault(difficulty, 1d));
   }
 
   public static int getBonemealLowerBound(Difficulty difficulty) {

@@ -19,11 +19,13 @@ public abstract class EggMixin {
 
   @Redirect(method = "aiStep", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/animal/Chicken;eggTime:I", opcode = Opcodes.PUTFIELD), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Chicken;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V")))
   private void modifyEggTime(Chicken instance, int value) {
-    instance.eggTime = ConfigUtil.getEggCooldown(instance.level().getDifficulty());
+    int newValue = ConfigUtil.getEggCooldown(instance.level().getDifficulty());
+    instance.eggTime = instance.level().getRandom().nextInt(newValue) + newValue;
   }
 
   @Inject(method = "<init>", at = @At("RETURN"))
   private void onConstructed(EntityType<? extends Chicken> type, Level level, CallbackInfo ci) {
-    survivaloverhaul$self().eggTime = ConfigUtil.getEggCooldown(level.getDifficulty());
+    int newValue = ConfigUtil.getEggCooldown(level.getDifficulty());
+    survivaloverhaul$self().eggTime = level.getRandom().nextInt(newValue) + newValue;
   }
 }

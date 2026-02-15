@@ -16,6 +16,7 @@ public abstract class BreedingTimeMixin {
 
   @ModifyArg(method = "finalizeSpawnChildFromBreeding", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Animal;setAge(I)V"))
   private int modifyBreedingTime(int time) {
-    return ConfigUtil.getBreedingCooldown(survivaloverhaul$self().level().getDifficulty());
+    int newValue = ConfigUtil.getBreedingCooldown(survivaloverhaul$self().level().getDifficulty());
+    return survivaloverhaul$self().level().getRandom().nextInt(newValue) + newValue;
   }
 }

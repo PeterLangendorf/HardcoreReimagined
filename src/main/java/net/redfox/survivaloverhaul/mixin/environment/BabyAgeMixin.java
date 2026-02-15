@@ -18,6 +18,7 @@ public abstract class BabyAgeMixin {
       method = "setBaby",
       at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/AgeableMob;setAge(I)V"))
   private int setAge(int pAge) {
-    return ConfigUtil.getBabyAgeMultiplier(survivaloverhaul$self().level().getDifficulty());
+    int newValue = ConfigUtil.getBabyAge(survivaloverhaul$self().level().getDifficulty());
+    return -(survivaloverhaul$self().level().getRandom().nextInt(newValue) + newValue);
   }
 }
