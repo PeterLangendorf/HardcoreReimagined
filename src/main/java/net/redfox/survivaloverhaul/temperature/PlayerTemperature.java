@@ -19,7 +19,7 @@ import net.redfox.survivaloverhaul.effect.HypothermiaEffect;
 import net.redfox.survivaloverhaul.networking.ModPackets;
 import net.redfox.survivaloverhaul.networking.packet.TemperatureDataSyncS2CPacket;
 import net.redfox.survivaloverhaul.util.MathHelper;
-import net.redfox.survivaloverhaul.util.config.json.JsonConfigReader;
+import net.redfox.survivaloverhaul.util.config.JsonConfigReader;
 import oshi.util.tuples.Pair;
 
 @AutoRegisterCapability

@@ -1,14 +1,20 @@
 package net.redfox.survivaloverhaul.event;
 
 import java.util.*;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
@@ -29,6 +35,7 @@ import net.redfox.survivaloverhaul.networking.packet.TemperatureDataSyncS2CPacke
 import net.redfox.survivaloverhaul.symptom.ModSymptoms;
 import net.redfox.survivaloverhaul.temperature.PlayerTemperature;
 import net.redfox.survivaloverhaul.temperature.PlayerTemperatureProvider;
+import net.redfox.survivaloverhaul.weight.Weight;
 
 public class ServerEvents {
   @Mod.EventBusSubscriber(modid = SurvivalOverhaul.MOD_ID)
@@ -53,10 +60,23 @@ public class ServerEvents {
           for (ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
             PlayerTemperature.periodicUpdate(player);
             ModSymptoms.periodicUpdate(player);
+            Weight.applyWeightModifier(player);
           }
         }
       }
     }
+
+    @SubscribeEvent
+    public static void onItemPickup(PlayerEvent.ItemPickupEvent event) {
+      Weight.applyWeightModifier(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onItemDrop(ItemTossEvent event) {
+      Weight.applyWeightModifier(event.getPlayer());
+    }
+
+
 
     @SubscribeEvent
     public static void onCommandsRegister(RegisterCommandsEvent event) {

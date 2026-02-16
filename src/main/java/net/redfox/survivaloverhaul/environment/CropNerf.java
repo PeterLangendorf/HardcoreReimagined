@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.redfox.survivaloverhaul.util.config.json.JsonConfigReader;
+import net.redfox.survivaloverhaul.util.config.JsonConfigReader;
 import oshi.util.tuples.Pair;
 
 public class CropNerf {

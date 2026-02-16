@@ -48,7 +48,6 @@ public class SurvivalOverhaul {
     TemperatureHudOverlay.init();
     if (ModCommonConfigs.FOOD_MODIFICATION_ENABLED.get()) FoodNerf.init();
     ConfigUtil.init();
-
     if (ModClientConfigs.FOOD_TYPE_TOOLTIP_DISPLAY.get())
       MinecraftForge.EVENT_BUS.addListener(FoodNerf::addTooltip);
   }
