@@ -18,6 +18,7 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BREEDING_COOLDOWN_MULTIPLIERS;
   public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EGG_TIME_MODIFIERS;
   public static final ForgeConfigSpec.ConfigValue<List<? extends String>> CROP_GROWTH_DIFFICULTY_MULTIPLIERS;
+  public static final ForgeConfigSpec.ConfigValue<Boolean> GLOBAL_HUNGER_MULTIPLIER_EMABLED;
   public static final ForgeConfigSpec.ConfigValue<List<? extends String>> GLOBAL_HUNGER_MULTIPLIERS;
   public static final ForgeConfigSpec.ConfigValue<Boolean> PASSIVE_EXHAUSTION_ENABLED;
   public static final ForgeConfigSpec.ConfigValue<Double> PASSIVE_EXHAUSTION_RATE;
@@ -246,10 +247,12 @@ public class ModCommonConfigs {
                   .comment("The rate, in hunger per minute, that exhaustion that is applied to the player.")
                   .comment("For example, a value of 1 means that every minute, the player will have lost 1 hunger.")
                   .define("passiveExhaustion", 1d);
+          BUILDER.comment("The global hunger multiplier is a multiplier, scaled by difficulty, that will be applied to every single action that decreases the player's hunger,");
+          GLOBAL_HUNGER_MULTIPLIER_EMABLED = BUILDER.comment("If true, enables the global hunger multiplier.").define("globalHungerMultiplierEnabled", true);
           GLOBAL_HUNGER_MULTIPLIERS =
               BUILDER
                   .comment(
-                      "The global hunger multiplier. Every single action's hunger loss will be multiplied by this.")
+                      "The multiplier, based on difficulty, that will be applied.")
                   .defineList(
                       "globalHungerMultiplier",
                       new ArrayList<>(Arrays.asList("peaceful:1", "easy:1.5", "normal:2", "hard:3")), obj -> obj instanceof String);
