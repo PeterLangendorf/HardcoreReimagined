@@ -307,8 +307,8 @@ public class ModCommonConfigs {
                 .define("spawnHungerMultiplier", 0.5);
       }
       BUILDER.pop();
-      BUILDER.pop();
-      SPEC = BUILDER.build();
     }
+    BUILDER.pop();
+    SPEC = BUILDER.build();
   }
 }
