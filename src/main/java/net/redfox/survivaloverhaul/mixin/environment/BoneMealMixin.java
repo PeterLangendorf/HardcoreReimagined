@@ -3,7 +3,7 @@ package net.redfox.survivaloverhaul.mixin.environment;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
-import net.redfox.survivaloverhaul.util.config.ConfigUtil;
+import net.redfox.survivaloverhaul.config.ConfigUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

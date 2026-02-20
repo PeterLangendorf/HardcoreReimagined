@@ -1,4 +1,4 @@
-package net.redfox.survivaloverhaul.util.config;
+package net.redfox.survivaloverhaul.config;
 
 import com.google.gson.*;
 import java.io.*;

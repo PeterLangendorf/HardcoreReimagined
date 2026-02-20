@@ -12,7 +12,7 @@ import net.redfox.survivaloverhaul.client.TemperatureHudOverlay;
 import net.redfox.survivaloverhaul.config.ModClientConfigs;
 import net.redfox.survivaloverhaul.config.ModCommonConfigs;
 import net.redfox.survivaloverhaul.effect.ModEffects;
-import net.redfox.survivaloverhaul.util.config.ConfigUtil;
+import net.redfox.survivaloverhaul.config.ConfigUtil;
 import net.redfox.survivaloverhaul.environment.CropNerf;
 import net.redfox.survivaloverhaul.event.AppleSkinEvents;
 import net.redfox.survivaloverhaul.food.FoodNerf;

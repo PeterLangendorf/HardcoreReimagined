@@ -1,8 +1,7 @@
-package net.redfox.survivaloverhaul.util.config;
+package net.redfox.survivaloverhaul.config;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 

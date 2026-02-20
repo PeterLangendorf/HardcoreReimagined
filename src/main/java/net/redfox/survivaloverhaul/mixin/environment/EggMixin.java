@@ -3,7 +3,7 @@ package net.redfox.survivaloverhaul.mixin.environment;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.level.Level;
-import net.redfox.survivaloverhaul.util.config.ConfigUtil;
+import net.redfox.survivaloverhaul.config.ConfigUtil;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

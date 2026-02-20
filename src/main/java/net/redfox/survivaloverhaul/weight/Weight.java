@@ -2,7 +2,6 @@ package net.redfox.survivaloverhaul.weight;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -10,9 +9,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.redfox.survivaloverhaul.util.config.JsonConfigReader;
-import net.redfox.survivaloverhaul.util.config.StringParsingUtil;
+import net.redfox.survivaloverhaul.config.JsonConfigReader;
+import net.redfox.survivaloverhaul.config.StringParsingUtil;
 
 import java.util.*;
 

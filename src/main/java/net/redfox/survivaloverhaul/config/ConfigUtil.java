@@ -1,10 +1,9 @@
-package net.redfox.survivaloverhaul.util.config;
+package net.redfox.survivaloverhaul.config;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.world.Difficulty;
-import net.redfox.survivaloverhaul.config.ModCommonConfigs;
 
 public class ConfigUtil {
   private static final Map<Difficulty, Double> EGG_MULTIPLIERS = new HashMap<>();
