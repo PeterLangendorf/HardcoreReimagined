@@ -23,6 +23,8 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<Boolean> PASSIVE_EXHAUSTION_ENABLED;
   public static final ForgeConfigSpec.ConfigValue<Double> PASSIVE_EXHAUSTION_RATE;
   public static final ForgeConfigSpec.ConfigValue<Boolean> INSTANT_STARVE_ENABLED;
+  public static final ForgeConfigSpec.ConfigValue<Boolean> NO_KNOCKBACK_ENABLED;
+  public static final ForgeConfigSpec.ConfigValue<Double> NO_KNOCKBACK_HEALTH_REQUIREMENT;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HEALTH_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HUNGER_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Integer> EGG_COOLDOWN;
@@ -295,16 +297,25 @@ public class ModCommonConfigs {
         BUILDER.pop();
       }
       BUILDER.pop();
-      BUILDER.push("health");
+      BUILDER.push("player");
       {
-        SPAWN_HEALTH_MULTIPLIER =
-            BUILDER
-                .comment("The multiplier applied to health upon respawn")
-                .define("spawnHealthMultiplier", 0.5);
-        SPAWN_HUNGER_MULTIPLIER =
-            BUILDER
-                .comment("The multiplier applied to hunger upon respawn")
-                .define("spawnHungerMultiplier", 0.5);
+        BUILDER.push("spawn");
+        {
+          SPAWN_HEALTH_MULTIPLIER =
+              BUILDER
+                  .comment("The multiplier applied to health upon respawn")
+                  .define("spawnHealthMultiplier", 0.5);
+          SPAWN_HUNGER_MULTIPLIER =
+              BUILDER
+                  .comment("The multiplier applied to hunger upon respawn")
+                  .define("spawnHungerMultiplier", 0.5);
+        }
+        BUILDER.pop();
+        BUILDER.push("combat");
+        {
+          NO_KNOCKBACK_ENABLED = BUILDER.comment("If true, the player will not be able to deal knockback when below a certain amount of health").define("noKnockbackEnabled", true);
+          NO_KNOCKBACK_HEALTH_REQUIREMENT = BUILDER.comment("The amount of health at which the player will no longer be able to deal knockback").define("noKnockbackHealthRequirement", 6.0d);
+        }
       }
       BUILDER.pop();
     }
