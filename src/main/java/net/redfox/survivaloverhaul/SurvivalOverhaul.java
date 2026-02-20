@@ -39,7 +39,7 @@ public class SurvivalOverhaul {
     MinecraftForge.EVENT_BUS.register(this);
 
     if (ModList.get().isLoaded("appleskin")) {
-      MinecraftForge.EVENT_BUS.addListener(AppleSkinEvents::onAppleSkinFoodEvent);
+      MinecraftForge.EVENT_BUS.addListener(AppleSkinEvents::appleskinDisplay);
     }
   }
 

@@ -6,7 +6,7 @@ import squeek.appleskin.api.event.FoodValuesEvent;
 import squeek.appleskin.api.food.FoodValues;
 
 public class AppleSkinEvents {
-  public static void onAppleSkinFoodEvent(FoodValuesEvent event) {
+  public static void appleskinDisplay(FoodValuesEvent event) {
     event.modifiedFoodValues =
         new FoodValues(
             (int)
