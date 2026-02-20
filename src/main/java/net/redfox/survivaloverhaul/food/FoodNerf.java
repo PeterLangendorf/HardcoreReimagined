@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.redfox.survivaloverhaul.util.ItemModifier;
-import net.redfox.survivaloverhaul.util.config.JsonConfigReader;
+import net.redfox.survivaloverhaul.config.JsonConfigReader;
 
 public class FoodNerf {
   private static final JsonArray JSON_FOOD_CATAGORIES = JsonConfigReader.getOrCreateJsonFile("food/food_types", JsonConfigReader.FOOD_TYPES).get("values").getAsJsonArray();
