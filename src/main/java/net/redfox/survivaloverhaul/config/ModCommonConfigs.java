@@ -250,6 +250,7 @@ public class ModCommonConfigs {
                   .comment("The rate, in hunger per minute, that exhaustion that is applied to the player.")
                   .comment("For example, a value of 1 means that every minute, the player will have lost 1 hunger.")
                   .define("passiveExhaustion", 1d);
+          BUILDER.comment("");
           BUILDER.comment("The global hunger multiplier is a multiplier, scaled by difficulty, that will be applied to every single action that decreases the player's hunger,");
           GLOBAL_HUNGER_MULTIPLIER_ENABLED = BUILDER.comment("If true, enables the global hunger multiplier.").define("globalHungerMultiplierEnabled", true);
           GLOBAL_HUNGER_MULTIPLIERS =
@@ -259,6 +260,7 @@ public class ModCommonConfigs {
                   .defineList(
                       "globalHungerMultiplier",
                       new ArrayList<>(Arrays.asList("peaceful:1", "easy:1.5", "normal:2", "hard:3")), obj -> obj instanceof String);
+          BUILDER.comment("");
           INSTANT_STARVE_ENABLED = BUILDER.comment("If true, the player will die instantly when they starve").define("instantStarveEnabled", true);
 
         }
