@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class PassiveHungerLossMixin {
   @Inject(method = "tick", at = @At("HEAD"))
   private void tick(Player pPlayer, CallbackInfo ci) {
-    if (!ModCommonConfigs.PASSIVE_EXHAUSTION_ENABLED.get()) return;
+    if (!ModCommonConfigs.PASSIVE_EXHAUSTION_ENABLED.get())
+      return;
     pPlayer.causeFoodExhaustion(ConfigUtil.getPassiveHungerLoss());
   }
 }

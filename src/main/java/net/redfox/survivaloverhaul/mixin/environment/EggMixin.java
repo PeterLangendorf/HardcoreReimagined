@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Chicken.class)
 public abstract class EggMixin {
-  @Unique
-  private Chicken survivaloverhaul$self() {
+  @Unique private Chicken survivaloverhaul$self() {
     return (Chicken) (Object) this;
   }
 

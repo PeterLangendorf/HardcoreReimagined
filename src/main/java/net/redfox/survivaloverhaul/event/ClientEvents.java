@@ -11,34 +11,26 @@ import net.redfox.survivaloverhaul.client.TemperatureHudOverlay;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistory;
 
 public class ClientEvents {
-  @Mod.EventBusSubscriber(
-      modid = SurvivalOverhaul.MOD_ID,
-      value = Dist.CLIENT,
-      bus = Mod.EventBusSubscriber.Bus.FORGE)
+  @Mod.EventBusSubscriber(modid = SurvivalOverhaul.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
   public static class ClientFoodEvents {
     @SubscribeEvent
     public static void onToolTip(ItemTooltipEvent event) {
-      if (!event.getItemStack().isEdible()) return;
-      if (event.getEntity() == null) return;
+      if (!event.getItemStack().isEdible())
+        return;
+      if (event.getEntity() == null)
+        return;
 
       PlayerFoodHistory.appendNutritionStats(event.getItemStack(), event.getToolTip());
     }
   }
 
-  @Mod.EventBusSubscriber(
-      modid = SurvivalOverhaul.MOD_ID,
-      value = Dist.CLIENT,
-      bus = Mod.EventBusSubscriber.Bus.MOD)
+  @Mod.EventBusSubscriber(modid = SurvivalOverhaul.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
   public static class ClientTemperatureEvents {
     @SubscribeEvent
     public static void onRegisterGuiOverlaysEvent(RegisterGuiOverlaysEvent event) {
-      event.registerAbove(
-          VanillaGuiOverlay.DEBUG_TEXT.id(),
-          "temperature_gauge",
+      event.registerAbove(VanillaGuiOverlay.DEBUG_TEXT.id(), "temperature_gauge",
           TemperatureHudOverlay.TEMPERATURE_GAUGE);
-      event.registerAbove(
-          VanillaGuiOverlay.DEBUG_TEXT.id(),
-          "temperature_reading",
+      event.registerAbove(VanillaGuiOverlay.DEBUG_TEXT.id(), "temperature_reading",
           TemperatureHudOverlay.TEMPERATURE_READING);
     }
   }

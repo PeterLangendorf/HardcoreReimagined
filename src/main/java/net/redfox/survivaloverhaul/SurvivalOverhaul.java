@@ -30,10 +30,8 @@ public class SurvivalOverhaul {
   public SurvivalOverhaul(FMLJavaModLoadingContext context) {
     IEventBus modEventBus = context.getModEventBus();
 
-    context.registerConfig(
-        ModConfig.Type.COMMON, ModCommonConfigs.SPEC, SurvivalOverhaul.MOD_ID + "/common.toml");
-    context.registerConfig(
-        ModConfig.Type.CLIENT, ModClientConfigs.SPEC, SurvivalOverhaul.MOD_ID + "/client.toml");
+    context.registerConfig(ModConfig.Type.COMMON, ModCommonConfigs.SPEC, SurvivalOverhaul.MOD_ID + "/common.toml");
+    context.registerConfig(ModConfig.Type.CLIENT, ModClientConfigs.SPEC, SurvivalOverhaul.MOD_ID + "/client.toml");
 
     ModEffects.register(modEventBus);
 
@@ -49,15 +47,18 @@ public class SurvivalOverhaul {
   private void commonSetup(final FMLCommonSetupEvent event) {
     ModPackets.init();
     TemperatureHudOverlay.init();
-    if (ModCommonConfigs.FOOD_MODIFICATION_ENABLED.get()) FoodNerf.init();
+    if (ModCommonConfigs.FOOD_MODIFICATION_ENABLED.get())
+      FoodNerf.init();
     ConfigUtil.init();
-    if (ModCommonConfigs.SYMPTOMS_ENABLED.get()) SymptomNerf.init();
+    if (ModCommonConfigs.SYMPTOMS_ENABLED.get())
+      SymptomNerf.init();
     if (ModClientConfigs.FOOD_TYPE_TOOLTIP_DISPLAY.get())
       MinecraftForge.EVENT_BUS.addListener(FoodNerf::addTooltip);
     if (ModCommonConfigs.NO_KNOCKBACK_ENABLED.get()) {
       MinecraftForge.EVENT_BUS.addListener(KnockbackNerf::onLivingKnockback);
       MinecraftForge.EVENT_BUS.addListener(KnockbackNerf::onLivingHurt);
     }
-    if (ModCommonConfigs.SPAWN_MODIFIERS_ENABLED.get()) MinecraftForge.EVENT_BUS.addListener(RespawnNerf::onRespawn);
+    if (ModCommonConfigs.SPAWN_MODIFIERS_ENABLED.get())
+      MinecraftForge.EVENT_BUS.addListener(RespawnNerf::onRespawn);
   }
 }

@@ -53,38 +53,29 @@ public class PlayerFoodHistory {
   }
 
   public static void appendNutritionStats(ItemStack stack, List<Component> tooltip) {
-    Pair<Integer, Double> multiplierAndSum =
-        getMultiplierAndSum(ClientFoodHistoryData.get(), getItemNameFromStack(stack));
+    Pair<Integer, Double> multiplierAndSum = getMultiplierAndSum(ClientFoodHistoryData.get(),
+        getItemNameFromStack(stack));
     final int sum = multiplierAndSum.getA();
     final double multiplier = multiplierAndSum.getB();
 
-    tooltip.add(
-        TooltipHandler.color(
-            Component.translatable(
-                "tooltip." + SurvivalOverhaul.MOD_ID + ".nutritional_value",
-                TooltipHandler.color(
-                    Component.literal(multiplier * 100 + "%"),
-                    TooltipHandler.getColorFromPercentage(multiplier * 100))),
-            ChatFormatting.GRAY));
+    tooltip.add(TooltipHandler.color(
+        Component.translatable("tooltip." + SurvivalOverhaul.MOD_ID + ".nutritional_value", TooltipHandler
+            .color(Component.literal(multiplier * 100 + "%"), TooltipHandler.getColorFromPercentage(multiplier * 100))),
+        ChatFormatting.GRAY));
     if (sum != 0) {
-      tooltip.add(
-          TooltipHandler.colorWithItalics(
-              Component.translatable(
-                  "tooltip." + SurvivalOverhaul.MOD_ID + ".times_eaten",
-                  TooltipHandler.getWordingFromNumber(sum),
-                  ModCommonConfigs.MAX_HISTORY.get()),
+      tooltip
+          .add(TooltipHandler.colorWithItalics(
+              Component.translatable("tooltip." + SurvivalOverhaul.MOD_ID + ".times_eaten",
+                  TooltipHandler.getWordingFromNumber(sum), ModCommonConfigs.MAX_HISTORY.get()),
               ChatFormatting.DARK_AQUA));
     } else {
-      tooltip.add(
-          TooltipHandler.colorWithItalics(
-              Component.translatable(
-                  "tooltip." + SurvivalOverhaul.MOD_ID + ".not_recently_eaten"),
-              ChatFormatting.DARK_AQUA));
+      tooltip.add(TooltipHandler.colorWithItalics(
+          Component.translatable("tooltip." + SurvivalOverhaul.MOD_ID + ".not_recently_eaten"),
+          ChatFormatting.DARK_AQUA));
     }
   }
 
-  public static Pair<Integer, Double> getMultiplierAndSum(
-      ArrayList<String> foodHistory, String item) {
+  public static Pair<Integer, Double> getMultiplierAndSum(ArrayList<String> foodHistory, String item) {
     int sum = 0;
     for (String food : foodHistory) {
       if (food.equals(item)) {
@@ -93,14 +84,12 @@ public class PlayerFoodHistory {
     }
 
     if (sum > ModCommonConfigs.NUTRITION_DECAY.get().size() - 1)
-      return new Pair<>(
-          sum,
-          ModCommonConfigs.NUTRITION_DECAY
-              .get()
-              .get(ModCommonConfigs.NUTRITION_DECAY.get().size() - 1));
+      return new Pair<>(sum,
+          ModCommonConfigs.NUTRITION_DECAY.get().get(ModCommonConfigs.NUTRITION_DECAY.get().size() - 1));
     else if (!(sum == 0))
       return new Pair<>(sum, ModCommonConfigs.NUTRITION_DECAY.get().get(sum - 1));
-    else return new Pair<>(0, 1.0);
+    else
+      return new Pair<>(0, 1.0);
   }
 
   public static String getItemNameFromStack(ItemStack stack) {

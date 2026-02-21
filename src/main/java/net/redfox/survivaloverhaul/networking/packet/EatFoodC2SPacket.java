@@ -24,18 +24,13 @@ public class EatFoodC2SPacket {
 
   public boolean handle(Supplier<NetworkEvent.Context> supplier) {
     NetworkEvent.Context context = supplier.get();
-    context.enqueueWork(
-        () -> {
-          ServerPlayer player = context.getSender();
-          player
-              .getCapability(PlayerFoodHistoryProvider.PLAYER_FOOD_HISTORY)
-              .ifPresent(
-                  history -> {
-                    history.addFood(foodName);
-                    ModPackets.sendToClient(
-                        new FoodHistorySyncS2CPacket(history.getFoodHistory()), player);
-                  });
-        });
+    context.enqueueWork(() -> {
+      ServerPlayer player = context.getSender();
+      player.getCapability(PlayerFoodHistoryProvider.PLAYER_FOOD_HISTORY).ifPresent(history -> {
+        history.addFood(foodName);
+        ModPackets.sendToClient(new FoodHistorySyncS2CPacket(history.getFoodHistory()), player);
+      });
+    });
     return true;
   }
 }

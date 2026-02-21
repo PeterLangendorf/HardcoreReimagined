@@ -1,10 +1,9 @@
 {
-	"effect.survivaloverhaul.hypothermia": "Hypothermia",
-	"effect.survivaloverhaul.heat_stroke": "Heat Stroke",
-	"death.attack.hypothermia": "%s succumbed to hypothermia",
-	"death.attack.heat_stroke": "%s succumbed to heat stroke",
-
-	"tooltip.survivaloverhaul.nutritional_value": "Nutritional Value: %s",
-	"tooltip.survivaloverhaul.times_eaten": "Eaten %s out of the last %s foods",
-	"tooltip.survivaloverhaul.not_recently_eaten": "Not eaten recently"
+  "effect.survivaloverhaul.hypothermia": "Hypothermia",
+  "effect.survivaloverhaul.heat_stroke": "Heat Stroke",
+  "death.attack.hypothermia": "%s succumbed to hypothermia",
+  "death.attack.heat_stroke": "%s succumbed to heat stroke",
+  "tooltip.survivaloverhaul.nutritional_value": "Nutritional Value: %s",
+  "tooltip.survivaloverhaul.times_eaten": "Eaten %s out of the last %s foods",
+  "tooltip.survivaloverhaul.not_recently_eaten": "Not eaten recently"
 }

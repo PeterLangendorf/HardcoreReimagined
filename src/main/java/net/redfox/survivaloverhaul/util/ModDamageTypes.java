@@ -7,12 +7,8 @@ import net.minecraft.world.damagesource.DamageType;
 import net.redfox.survivaloverhaul.SurvivalOverhaul;
 
 public class ModDamageTypes {
-  public static final ResourceKey<DamageType> HYPOTHERMIA_KEY =
-      ResourceKey.create(
-          Registries.DAMAGE_TYPE,
-          ResourceLocation.fromNamespaceAndPath(SurvivalOverhaul.MOD_ID, "hypothermia"));
-  public static final ResourceKey<DamageType> HEAT_STROKE_KEY =
-      ResourceKey.create(
-          Registries.DAMAGE_TYPE,
-          ResourceLocation.fromNamespaceAndPath(SurvivalOverhaul.MOD_ID, "heat_stroke"));
+  public static final ResourceKey<DamageType> HYPOTHERMIA_KEY = ResourceKey.create(Registries.DAMAGE_TYPE,
+      ResourceLocation.fromNamespaceAndPath(SurvivalOverhaul.MOD_ID, "hypothermia"));
+  public static final ResourceKey<DamageType> HEAT_STROKE_KEY = ResourceKey.create(Registries.DAMAGE_TYPE,
+      ResourceLocation.fromNamespaceAndPath(SurvivalOverhaul.MOD_ID, "heat_stroke"));
 }

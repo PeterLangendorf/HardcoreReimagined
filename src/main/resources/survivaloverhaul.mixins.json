@@ -14,9 +14,8 @@
     "food.InstantStarveMixin",
     "food.PassiveHungerLossMixin"
   ],
-  "client": [
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

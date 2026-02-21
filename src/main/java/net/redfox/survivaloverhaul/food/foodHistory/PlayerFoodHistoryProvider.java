@@ -11,14 +11,12 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerFoodHistoryProvider
-    implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-  public static Capability<PlayerFoodHistory> PLAYER_FOOD_HISTORY =
-      CapabilityManager.get(new CapabilityToken<>() {});
+public class PlayerFoodHistoryProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+  public static Capability<PlayerFoodHistory> PLAYER_FOOD_HISTORY = CapabilityManager.get(new CapabilityToken<>() {
+  });
 
   private PlayerFoodHistory foodHistory = null;
-  private final LazyOptional<PlayerFoodHistory> optional =
-      LazyOptional.of(this::createPlayerFoodHistory);
+  private final LazyOptional<PlayerFoodHistory> optional = LazyOptional.of(this::createPlayerFoodHistory);
 
   private PlayerFoodHistory createPlayerFoodHistory() {
     if (this.foodHistory == null) {
@@ -28,8 +26,7 @@ public class PlayerFoodHistoryProvider
   }
 
   @Override
-  public @NotNull <T> LazyOptional<T> getCapability(
-      @NotNull Capability<T> cap, @Nullable Direction side) {
+  public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
     if (cap == PLAYER_FOOD_HISTORY) {
       return optional.cast();
     }

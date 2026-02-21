@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BoneMealMixin {
   @Inject(method = "getBonemealAgeIncrease", at = @At("HEAD"), cancellable = true)
   private void overrideBonemealIncrease(Level pLevel, CallbackInfoReturnable<Integer> cir) {
-    cir.setReturnValue(Mth.nextInt(pLevel.random, ConfigUtil.getBonemealLowerBound(pLevel.getDifficulty()), ConfigUtil.getBonemealUpperBound(pLevel.getDifficulty())));
+    cir.setReturnValue(Mth.nextInt(pLevel.random, ConfigUtil.getBonemealLowerBound(pLevel.getDifficulty()),
+        ConfigUtil.getBonemealUpperBound(pLevel.getDifficulty())));
   }
 }

@@ -3,25 +3,21 @@ package net.redfox.survivaloverhaul.player;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.JsonAdapter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.redfox.survivaloverhaul.config.JsonConfigReader;
 import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 public class SymptomNerf {
-  private static final JsonArray JSON_SYMPTOMS = JsonConfigReader.getOrCreateJsonFile("player/symptoms", JsonConfigReader.SYMPTOMS).get("values").getAsJsonArray();
+  private static final JsonArray JSON_SYMPTOMS = JsonConfigReader
+      .getOrCreateJsonFile("player/symptoms", JsonConfigReader.SYMPTOMS).get("values").getAsJsonArray();
 
   private static final TreeMap<Double, List<Pair<MobEffect, Integer>>> HUNGER_SYMPTOM_MAP = new TreeMap<>();
   private static final TreeMap<Double, List<Pair<MobEffect, Integer>>> HEALTH_SYMPTOM_MAP = new TreeMap<>();
@@ -32,9 +28,9 @@ public class SymptomNerf {
       List<Pair<MobEffect, Integer>> list = new ArrayList<>();
       for (JsonElement innerElement : object.getAsJsonArray("effects")) {
         list.add(new Pair<>(
-            ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.parse(innerElement.getAsJsonObject().get("effect").getAsString())),
-            innerElement.getAsJsonObject().get("amplifier").getAsInt()
-        ));
+            ForgeRegistries.MOB_EFFECTS
+                .getValue(ResourceLocation.parse(innerElement.getAsJsonObject().get("effect").getAsString())),
+            innerElement.getAsJsonObject().get("amplifier").getAsInt()));
       }
 
       if (object.get("condition_type").getAsString().equals("hunger")) {
@@ -46,7 +42,8 @@ public class SymptomNerf {
   }
 
   public static void periodicUpdate(ServerPlayer player) {
-    if (player.isCreative() || player.isDeadOrDying()) return;
+    if (player.isCreative() || player.isDeadOrDying())
+      return;
 
     double hunger = player.getFoodData().getFoodLevel();
     for (double key : HUNGER_SYMPTOM_MAP.keySet()) {

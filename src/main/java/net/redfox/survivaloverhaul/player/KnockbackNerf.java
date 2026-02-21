@@ -4,7 +4,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.redfox.survivaloverhaul.config.ModCommonConfigs;
 
 import java.util.Collections;
@@ -12,8 +11,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 public class KnockbackNerf {
-  private static final Set<Entity> CANCEL_KNOCKBACK_SET =
-      Collections.newSetFromMap(new WeakHashMap<>());
+  private static final Set<Entity> CANCEL_KNOCKBACK_SET = Collections.newSetFromMap(new WeakHashMap<>());
 
   public static void onLivingHurt(LivingHurtEvent event) {
     if (event.getSource().getEntity() instanceof Player player) {

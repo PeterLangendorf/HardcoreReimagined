@@ -31,10 +31,9 @@ public class FoodHistorySyncS2CPacket {
 
   public boolean handle(Supplier<NetworkEvent.Context> supplier) {
     NetworkEvent.Context context = supplier.get();
-    context.enqueueWork(
-        () -> {
-          ClientFoodHistoryData.set(foodHistory);
-        });
+    context.enqueueWork(() -> {
+      ClientFoodHistoryData.set(foodHistory);
+    });
     return true;
   }
 }

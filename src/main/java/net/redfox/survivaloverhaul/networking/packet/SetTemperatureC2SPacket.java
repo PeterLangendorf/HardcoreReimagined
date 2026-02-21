@@ -23,18 +23,14 @@ public class SetTemperatureC2SPacket {
 
   public boolean handle(Supplier<NetworkEvent.Context> supplier) {
     NetworkEvent.Context context = supplier.get();
-    context.enqueueWork(
-        () -> {
-          ServerPlayer player = context.getSender();
+    context.enqueueWork(() -> {
+      ServerPlayer player = context.getSender();
 
-          if (player != null)
-            player
-                .getCapability(PlayerTemperatureProvider.PLAYER_TEMPERATURE)
-                .ifPresent(
-                    playerTemperature -> {
-                      playerTemperature.setTemperature(temperature);
-                    });
+      if (player != null)
+        player.getCapability(PlayerTemperatureProvider.PLAYER_TEMPERATURE).ifPresent(playerTemperature -> {
+          playerTemperature.setTemperature(temperature);
         });
+    });
     return true;
   }
 }

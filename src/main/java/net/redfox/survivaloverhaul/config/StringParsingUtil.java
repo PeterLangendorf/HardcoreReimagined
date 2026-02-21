@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class StringParsingUtil {
-  public static <T, R> void fillMap(Map<T, R> map, List<? extends String> toFill, Function<String, T> key, Function<String, R> value) {
+  public static <T, R> void fillMap(Map<T, R> map, List<? extends String> toFill, Function<String, T> key,
+      Function<String, R> value) {
     for (String base : toFill) {
       String[] split = base.trim().split(":");
       map.put(key.apply(split[0]), value.apply(split[1]));
@@ -23,7 +24,8 @@ public class StringParsingUtil {
     }
 
     if (matchString.startsWith("#")) {
-      return ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(ResourceLocation.parse(matchString.substring(1)))).contains(item);
+      return ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(ResourceLocation.parse(matchString.substring(1))))
+          .contains(item);
     } else {
       return ResourceLocation.parse(matchString).equals(ForgeRegistries.ITEMS.getKey(item));
     }

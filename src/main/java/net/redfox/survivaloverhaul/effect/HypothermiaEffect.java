@@ -16,14 +16,8 @@ public class HypothermiaEffect extends MobEffect {
 
   @Override
   public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-    pLivingEntity.hurt(
-        new DamageSource(
-            pLivingEntity
-                .level()
-                .registryAccess()
-                .lookupOrThrow(Registries.DAMAGE_TYPE)
-                .getOrThrow(ModDamageTypes.HYPOTHERMIA_KEY)),
-        1 + pAmplifier);
+    pLivingEntity.hurt(new DamageSource(pLivingEntity.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
+        .getOrThrow(ModDamageTypes.HYPOTHERMIA_KEY)), 1 + pAmplifier);
     super.applyEffectTick(pLivingEntity, pAmplifier);
   }
 
@@ -33,8 +27,6 @@ public class HypothermiaEffect extends MobEffect {
   }
 
   public static void applyStandardEffect(ServerPlayer player, double temp) {
-    player.addEffect(
-        SymptomNerf.create(
-            ModEffects.HYPOTHERMIA.get(), 120, Math.abs((int) ((temp + 50) / 30)) - 1));
+    player.addEffect(SymptomNerf.create(ModEffects.HYPOTHERMIA.get(), 120, Math.abs((int) ((temp + 50) / 30)) - 1));
   }
 }

@@ -5,19 +5,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public class TooltipHandler {
-  private static final String[] NUMBER_WORDS =
-      new String[] {
-        "once",
-        "twice",
-        "three times",
-        "four times",
-        "five times",
-        "six times",
-        "seven times",
-        "eight times",
-        "nine times",
-        "ten times"
-      };
+  private static final String[] NUMBER_WORDS = new String[]{"once", "twice", "three times", "four times", "five times",
+      "six times", "seven times", "eight times", "nine times", "ten times"};
 
   public static Component color(MutableComponent component, ChatFormatting color) {
     return component.withStyle(s -> s.withColor(color));
@@ -39,7 +28,8 @@ public class TooltipHandler {
   }
 
   public static String getWordingFromNumber(int num) {
-    if (num - 1 < 10) return NUMBER_WORDS[num - 1];
+    if (num - 1 < 10)
+      return NUMBER_WORDS[num - 1];
     return num + " times";
   }
 }

@@ -9,14 +9,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(AgeableMob.class)
 public abstract class BabyAgeMixin {
-  @Unique
-  private AgeableMob survivaloverhaul$self() {
+  @Unique private AgeableMob survivaloverhaul$self() {
     return (AgeableMob) (Object) this;
   }
 
-  @ModifyArg(
-      method = "setBaby",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/AgeableMob;setAge(I)V"))
+  @ModifyArg(method = "setBaby", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/AgeableMob;setAge(I)V"))
   private int setAge(int pAge) {
     int newValue = ConfigUtil.getBabyAge(survivaloverhaul$self().level().getDifficulty());
     return -(survivaloverhaul$self().level().getRandom().nextInt(newValue) + newValue);

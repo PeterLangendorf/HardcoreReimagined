@@ -22,37 +22,25 @@ public class ModPackets {
   }
 
   public static void init() {
-    SimpleChannel net =
-        NetworkRegistry.ChannelBuilder.named(
-                ResourceLocation.fromNamespaceAndPath(SurvivalOverhaul.MOD_ID, "message"))
-            .networkProtocolVersion(() -> "1.0")
-            .clientAcceptedVersions(s -> true)
-            .serverAcceptedVersions(s -> true)
-            .simpleChannel();
+    SimpleChannel net = NetworkRegistry.ChannelBuilder
+        .named(ResourceLocation.fromNamespaceAndPath(SurvivalOverhaul.MOD_ID, "message"))
+        .networkProtocolVersion(() -> "1.0").clientAcceptedVersions(s -> true).serverAcceptedVersions(s -> true)
+        .simpleChannel();
 
     INSTANCE = net;
 
     net.messageBuilder(TemperatureDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-        .decoder(TemperatureDataSyncS2CPacket::new)
-        .encoder(TemperatureDataSyncS2CPacket::toBytes)
-        .consumerMainThread(TemperatureDataSyncS2CPacket::handle)
-        .add();
+        .decoder(TemperatureDataSyncS2CPacket::new).encoder(TemperatureDataSyncS2CPacket::toBytes)
+        .consumerMainThread(TemperatureDataSyncS2CPacket::handle).add();
     net.messageBuilder(SetTemperatureC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-        .decoder(SetTemperatureC2SPacket::new)
-        .encoder(SetTemperatureC2SPacket::toBytes)
-        .consumerMainThread(SetTemperatureC2SPacket::handle)
-        .add();
+        .decoder(SetTemperatureC2SPacket::new).encoder(SetTemperatureC2SPacket::toBytes)
+        .consumerMainThread(SetTemperatureC2SPacket::handle).add();
 
-    net.messageBuilder(EatFoodC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-        .decoder(EatFoodC2SPacket::new)
-        .encoder(EatFoodC2SPacket::toBytes)
-        .consumerMainThread(EatFoodC2SPacket::handle)
-        .add();
+    net.messageBuilder(EatFoodC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).decoder(EatFoodC2SPacket::new)
+        .encoder(EatFoodC2SPacket::toBytes).consumerMainThread(EatFoodC2SPacket::handle).add();
     net.messageBuilder(FoodHistorySyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-        .decoder(FoodHistorySyncS2CPacket::new)
-        .encoder(FoodHistorySyncS2CPacket::toBytes)
-        .consumerMainThread(FoodHistorySyncS2CPacket::handle)
-        .add();
+        .decoder(FoodHistorySyncS2CPacket::new).encoder(FoodHistorySyncS2CPacket::toBytes)
+        .consumerMainThread(FoodHistorySyncS2CPacket::handle).add();
   }
 
   public static <MSG> void sendToServer(MSG message) {

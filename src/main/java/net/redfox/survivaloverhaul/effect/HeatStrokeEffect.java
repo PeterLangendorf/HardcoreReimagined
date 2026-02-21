@@ -16,14 +16,8 @@ public class HeatStrokeEffect extends MobEffect {
 
   @Override
   public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-    pLivingEntity.hurt(
-        new DamageSource(
-            pLivingEntity
-                .level()
-                .registryAccess()
-                .lookupOrThrow(Registries.DAMAGE_TYPE)
-                .getOrThrow(ModDamageTypes.HEAT_STROKE_KEY)),
-        1 + pAmplifier);
+    pLivingEntity.hurt(new DamageSource(pLivingEntity.level().registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
+        .getOrThrow(ModDamageTypes.HEAT_STROKE_KEY)), 1 + pAmplifier);
     super.applyEffectTick(pLivingEntity, pAmplifier);
   }
 
@@ -33,8 +27,6 @@ public class HeatStrokeEffect extends MobEffect {
   }
 
   public static void applyStandardEffect(ServerPlayer player, double temp) {
-    player.addEffect(
-        SymptomNerf.create(
-            ModEffects.HEAT_STROKE.get(), 120, Math.abs((int) ((50 - temp) / 30)) - 1));
+    player.addEffect(SymptomNerf.create(ModEffects.HEAT_STROKE.get(), 120, Math.abs((int) ((50 - temp) / 30)) - 1));
   }
 }

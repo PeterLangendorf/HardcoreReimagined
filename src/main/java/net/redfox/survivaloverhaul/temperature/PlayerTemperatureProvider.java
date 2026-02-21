@@ -11,13 +11,11 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerTemperatureProvider
-    implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-  public static Capability<PlayerTemperature> PLAYER_TEMPERATURE =
-      CapabilityManager.get(new CapabilityToken<>() {});
+public class PlayerTemperatureProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+  public static Capability<PlayerTemperature> PLAYER_TEMPERATURE = CapabilityManager.get(new CapabilityToken<>() {
+  });
   private PlayerTemperature temperature = null;
-  private final LazyOptional<PlayerTemperature> optional =
-      LazyOptional.of(this::createPlayerTemperature);
+  private final LazyOptional<PlayerTemperature> optional = LazyOptional.of(this::createPlayerTemperature);
 
   private @NotNull PlayerTemperature createPlayerTemperature() {
     if (this.temperature == null) {
@@ -28,8 +26,7 @@ public class PlayerTemperatureProvider
   }
 
   @Override
-  public @NotNull <T> LazyOptional<T> getCapability(
-      @NotNull Capability<T> cap, @Nullable Direction side) {
+  public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
     if (cap == PLAYER_TEMPERATURE) {
       return optional.cast();
     }

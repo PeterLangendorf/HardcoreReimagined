@@ -9,8 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(Animal.class)
 public abstract class BreedingTimeMixin {
-  @Unique
-  private Animal survivaloverhaul$self() {
+  @Unique private Animal survivaloverhaul$self() {
     return (Animal) (Object) this;
   }
 

@@ -8,10 +8,10 @@ import java.util.Map;
 
 public class ItemModifier {
   public enum Modification {
-    STACK_SIZE,
-    FOODSAT
+    STACK_SIZE, FOODSAT
   }
-  private static final Map<Modification, String> PROPERTY_PATHS = Map.of(Modification.STACK_SIZE, "f_41370_", Modification.FOODSAT, "f_41380_");
+  private static final Map<Modification, String> PROPERTY_PATHS = Map.of(Modification.STACK_SIZE, "f_41370_",
+      Modification.FOODSAT, "f_41380_");
 
   public static void modifyItem(Modification path, Item item, Object set) {
     try {
