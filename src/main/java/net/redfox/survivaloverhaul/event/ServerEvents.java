@@ -84,7 +84,7 @@ public class ServerEvents {
   }
 
   @Mod.EventBusSubscriber(modid = SurvivalOverhaul.MOD_ID)
-  public static class ServerCapablityEvents {
+  public static class ServerCapabilityEvents {
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
       if (event.getObject() instanceof Player) {
