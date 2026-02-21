@@ -17,6 +17,7 @@ import net.minecraftforge.server.command.ConfigCommand;
 import net.redfox.survivaloverhaul.SurvivalOverhaul;
 import net.redfox.survivaloverhaul.command.GetTemperature;
 import net.redfox.survivaloverhaul.command.SetTemperature;
+import net.redfox.survivaloverhaul.config.ModCommonConfigs;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistory;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistoryProvider;
 import net.redfox.survivaloverhaul.networking.ModPackets;
@@ -50,7 +51,7 @@ public class ServerEvents {
         if (event.getServer().getTickCount() % 20 == 0) {
           for (ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
             PlayerTemperature.periodicUpdate(player);
-            SymptomNerf.periodicUpdate(player);
+            if (ModCommonConfigs.SYMPTOMS_ENABLED.get()) SymptomNerf.periodicUpdate(player);
             Weight.applyWeightModifier(player);
           }
         }

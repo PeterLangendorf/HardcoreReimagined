@@ -28,6 +28,7 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HEALTH_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HUNGER_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Boolean> SPAWN_MODIFIERS_ENABLED;
+  public static final ForgeConfigSpec.ConfigValue<Boolean> SYMPTOMS_ENABLED;
   public static final ForgeConfigSpec.ConfigValue<Integer> EGG_COOLDOWN;
 
 
@@ -304,7 +305,8 @@ public class ModCommonConfigs {
       {
         BUILDER.push("spawn");
         {
-          SPAWN_MODIFIERS_ENABLED = BUILDER.comment("If true, the following multipliers will be applied to the player upon respawn.").define("spawnModifiersEnabled", true);
+          SPAWN_MODIFIERS_ENABLED = BUILDER.comment("If true, the following multipliers will be applied to the player upon respawn.")
+              .define("spawnModifiersEnabled", true);
 
           SPAWN_HEALTH_MULTIPLIER =
               BUILDER
@@ -320,6 +322,13 @@ public class ModCommonConfigs {
         {
           NO_KNOCKBACK_ENABLED = BUILDER.comment("If true, the player will not be able to deal knockback when below a certain amount of health").define("noKnockbackEnabled", true);
           NO_KNOCKBACK_HEALTH_REQUIREMENT = BUILDER.comment("The amount of health at which the player will no longer be able to deal knockback").define("noKnockbackHealthRequirement", 6.0d);
+        }
+        BUILDER.push("symptoms");
+        {
+          BUILDER.comment("Symptoms are debuffs that are applied to the player when they are below a certain health or hunger.")
+              .comment("Symptoms can be modified in the JSON file at /survivaloverhaul/player/symptoms.json");
+          BUILDER.comment("");
+          SYMPTOMS_ENABLED = BUILDER.comment("If true, enables symptom debuffs.").define("symptomsEnabled", true);
         }
       }
       BUILDER.pop();
