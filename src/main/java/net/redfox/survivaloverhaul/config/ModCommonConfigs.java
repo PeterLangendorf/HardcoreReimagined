@@ -27,6 +27,7 @@ public class ModCommonConfigs {
   public static final ForgeConfigSpec.ConfigValue<Double> NO_KNOCKBACK_HEALTH_REQUIREMENT;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HEALTH_MULTIPLIER;
   public static final ForgeConfigSpec.ConfigValue<Double> SPAWN_HUNGER_MULTIPLIER;
+  public static final ForgeConfigSpec.ConfigValue<Boolean> SPAWN_MODIFIERS_ENABLED;
   public static final ForgeConfigSpec.ConfigValue<Integer> EGG_COOLDOWN;
 
 
@@ -303,6 +304,8 @@ public class ModCommonConfigs {
       {
         BUILDER.push("spawn");
         {
+          SPAWN_MODIFIERS_ENABLED = BUILDER.comment("If true, the following multipliers will be applied to the player upon respawn.").define("spawnModifiersEnabled", true);
+
           SPAWN_HEALTH_MULTIPLIER =
               BUILDER
                   .comment("The multiplier applied to health upon respawn")

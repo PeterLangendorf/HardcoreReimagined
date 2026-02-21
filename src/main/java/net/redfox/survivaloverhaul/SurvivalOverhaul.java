@@ -18,6 +18,7 @@ import net.redfox.survivaloverhaul.event.AppleSkinEvents;
 import net.redfox.survivaloverhaul.food.FoodNerf;
 import net.redfox.survivaloverhaul.networking.ModPackets;
 import net.redfox.survivaloverhaul.player.KnockbackNerf;
+import net.redfox.survivaloverhaul.player.RespawnNerf;
 import org.slf4j.Logger;
 
 @Mod(SurvivalOverhaul.MOD_ID)
@@ -55,5 +56,6 @@ public class SurvivalOverhaul {
       MinecraftForge.EVENT_BUS.addListener(KnockbackNerf::onLivingKnockback);
       MinecraftForge.EVENT_BUS.addListener(KnockbackNerf::onLivingHurt);
     }
+    if (ModCommonConfigs.SPAWN_MODIFIERS_ENABLED.get()) MinecraftForge.EVENT_BUS.addListener(RespawnNerf::onRespawn);
   }
 }

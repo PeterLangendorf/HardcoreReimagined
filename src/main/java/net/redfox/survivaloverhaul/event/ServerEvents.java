@@ -1,7 +1,5 @@
 package net.redfox.survivaloverhaul.event;
 
-import java.util.*;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -12,8 +10,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +17,6 @@ import net.minecraftforge.server.command.ConfigCommand;
 import net.redfox.survivaloverhaul.SurvivalOverhaul;
 import net.redfox.survivaloverhaul.command.GetTemperature;
 import net.redfox.survivaloverhaul.command.SetTemperature;
-import net.redfox.survivaloverhaul.config.ModCommonConfigs;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistory;
 import net.redfox.survivaloverhaul.food.foodHistory.PlayerFoodHistoryProvider;
 import net.redfox.survivaloverhaul.networking.ModPackets;
@@ -144,38 +139,6 @@ public class ServerEvents {
                   });
         }
       }
-    }
-  }
-
-  @Mod.EventBusSubscriber(modid = SurvivalOverhaul.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-  public static class ServerHealthEvents {
-    private static final Set<Entity> CANCEL_KNOCKBACK_SET =
-        Collections.newSetFromMap(new WeakHashMap<>());
-
-    public static void onLivingHurt(LivingHurtEvent event) {
-      if (event.getSource().getEntity() instanceof Player player) {
-        if (player.level().isClientSide()) {
-          return;
-        }
-        if (!(event.getEntity() instanceof Player)) {
-          if (player.getHealth() <= 6.0F) {
-            CANCEL_KNOCKBACK_SET.add(event.getEntity());
-          }
-        }
-      }
-    }
-
-    @SubscribeEvent
-    public static void onLivingKnockback(LivingKnockBackEvent event) {
-      if (CANCEL_KNOCKBACK_SET.remove(event.getEntity())) {
-        event.setCanceled(true);
-      }
-    }
-
-    @SubscribeEvent
-    public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
-      event.getEntity().setHealth((int) (event.getEntity().getMaxHealth() * ModCommonConfigs.SPAWN_HEALTH_MULTIPLIER.get()));
-      event.getEntity().getFoodData().setFoodLevel((int) (event.getEntity().getFoodData().getFoodLevel() * ModCommonConfigs.SPAWN_HUNGER_MULTIPLIER.get()));
     }
   }
 }
