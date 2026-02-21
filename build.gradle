@@ -245,44 +245,4 @@ spotless {
     formatAnnotations()
     endWithNewline()
   }
-  groovyGradle {
-    target fileTree('.') {
-      include '**/*.gradle'
-      exclude '**/build/**', '**/build-*/**', '**/bin/**'
-    }
-    greclipse()
-    indentWithSpaces(2)
-    trimTrailingWhitespace()
-    endWithNewline()
-  }
-  json {
-    target fileTree('.') {
-      include '**/*.json'
-      exclude '**/build/**', '**/build-*/**', '**/bin/**'
-      exclude '**/simgui-ds.json', '**/simgui-window.json', '**/simgui.json', '**/networktables.json'
-      exclude '.vscode/*.json'
-      exclude '.wpilib/*.json'
-      exclude 'vendordeps/*.json'
-    }
-    gson().indentWithSpaces(2)
-  }
-  format 'xml', {
-    target fileTree('.') {
-      include '**/*.xml'
-      exclude '**/build/**', '**/build-*/**', '**/bin/**', '**/.idea/**', '**/.run/**'
-    }
-    eclipseWtp('xml')
-    trimTrailingWhitespace()
-    indentWithSpaces(2)
-    endWithNewline()
-  }
-  format 'misc', {
-    target fileTree('.') {
-      include '**/*.md', '**/.gitignore'
-      exclude '**/build/**', '**/build-*/**', '**/bin/**'
-    }
-    trimTrailingWhitespace()
-    indentWithSpaces(2)
-    endWithNewline()
-  }
 }
