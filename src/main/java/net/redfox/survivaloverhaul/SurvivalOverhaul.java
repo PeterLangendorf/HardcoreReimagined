@@ -19,6 +19,7 @@ import net.redfox.survivaloverhaul.food.FoodNerf;
 import net.redfox.survivaloverhaul.networking.ModPackets;
 import net.redfox.survivaloverhaul.player.KnockbackNerf;
 import net.redfox.survivaloverhaul.player.RespawnNerf;
+import net.redfox.survivaloverhaul.player.SymptomNerf;
 import org.slf4j.Logger;
 
 @Mod(SurvivalOverhaul.MOD_ID)
@@ -50,6 +51,7 @@ public class SurvivalOverhaul {
     TemperatureHudOverlay.init();
     if (ModCommonConfigs.FOOD_MODIFICATION_ENABLED.get()) FoodNerf.init();
     ConfigUtil.init();
+    SymptomNerf.init();
     if (ModClientConfigs.FOOD_TYPE_TOOLTIP_DISPLAY.get())
       MinecraftForge.EVENT_BUS.addListener(FoodNerf::addTooltip);
     if (ModCommonConfigs.NO_KNOCKBACK_ENABLED.get()) {

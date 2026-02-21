@@ -1178,6 +1178,39 @@ public class JsonConfigReader {
       new JsonObjectBuilder().add("item", "minecraft:wheat_seeds").add("weight", 0.01).build()
   )));
 
+  public static final Runnable SYMPTOMS = () -> writeJsonFile(getFilePathAsString("player/symptoms"), createDefaultJsonObject(createJsonArray(
+      new JsonObjectBuilder().add("condition_type", "hunger").add("value", 8).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 0).build()
+      )).build(),
+      new JsonObjectBuilder().add("condition_type", "hunger").add("value", 4).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 0).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:weakness").add("amplifier", 0).build()
+      )).build(),
+      new JsonObjectBuilder().add("condition_type", "hunger").add("value", 2).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 1).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:weakness").add("amplifier", 0).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:mining_fatigue").add("amplifier", 0).build()
+      )).build(),
+      new JsonObjectBuilder().add("condition_type", "health").add("value", 9).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 0).build()
+      )).build(),
+      new JsonObjectBuilder().add("condition_type", "health").add("value", 6).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 1).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:mining_fatigue").add("amplifier", 0).build()
+      )).build(),
+      new JsonObjectBuilder().add("condition_type", "health").add("value", 4).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 2).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:mining_fatigue").add("amplifier", 0).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:weakness").add("amplifier", 0).build()
+      )).build(),
+      new JsonObjectBuilder().add("condition_type", "health").add("value", 2).add("effects", createJsonArray(
+          new JsonObjectBuilder().add("effect", "minecraft:slowness").add("amplifier", 3).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:mining_fatigue").add("amplifier", 0).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:weakness").add("amplifier", 1).build(),
+          new JsonObjectBuilder().add("effect", "minecraft:nausea").add("amplifier", 0).build()
+      )).build()
+  )));
+
   public static JsonObject getOrCreateJsonFile(String fileName, Runnable create) {
     if (!new File(getFilePathAsString(fileName)).exists()) create.run();
     return readJsonFile(fileName);

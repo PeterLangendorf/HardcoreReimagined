@@ -1,54 +1,76 @@
 package net.redfox.survivaloverhaul.player;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.JsonAdapter;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.redfox.survivaloverhaul.config.JsonConfigReader;
+import oshi.util.tuples.Pair;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SymptomNerf {
+  private static final JsonArray JSON_SYMPTOMS = JsonConfigReader.getOrCreateJsonFile("player/symptoms", JsonConfigReader.SYMPTOMS).get("values").getAsJsonArray();
+
+  private static final TreeMap<Double, List<Pair<MobEffect, Integer>>> HUNGER_SYMPTOM_MAP = new TreeMap<>();
+  private static final TreeMap<Double, List<Pair<MobEffect, Integer>>> HEALTH_SYMPTOM_MAP = new TreeMap<>();
+
+  public static void init() {
+    for (JsonElement element : JSON_SYMPTOMS) {
+      JsonObject object = element.getAsJsonObject();
+      List<Pair<MobEffect, Integer>> list = new ArrayList<>();
+      for (JsonElement innerElement : object.getAsJsonArray("effects")) {
+        list.add(new Pair<>(
+            ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.parse(innerElement.getAsJsonObject().get("effect").getAsString())),
+            innerElement.getAsJsonObject().get("amplifier").getAsInt()
+        ));
+      }
+
+      if (object.get("condition_type").getAsString().equals("hunger")) {
+        HUNGER_SYMPTOM_MAP.put(object.get("value").getAsDouble(), list);
+      } else if (object.get("condition_type").getAsString().equals("health")) {
+        HEALTH_SYMPTOM_MAP.put(object.get("value").getAsDouble(), list);
+      }
+    }
+  }
+
   public static void periodicUpdate(ServerPlayer player) {
     if (player.isCreative() || player.isDeadOrDying()) return;
-    float health = player.getHealth();
-    int hunger = player.getFoodData().getFoodLevel();
 
-    int slownessAmplifier = -1;
-    int miningFatigueAmplifier = -1;
-    int weaknessAmplifier = -1;
-    int nauseaAmplifier = -1;
+    double hunger = player.getFoodData().getFoodLevel();
+    for (double key : HUNGER_SYMPTOM_MAP.keySet()) {
+      if (hunger <= key) {
+        for (var effect : HUNGER_SYMPTOM_MAP.get(key)) {
+          player.addEffect(create(effect.getA(), effect.getB()));
+        }
+        break;
+      }
+    }
 
-    if (health <= 9) {
-      slownessAmplifier++;
+    double health = player.getHealth();
+    for (double key : HEALTH_SYMPTOM_MAP.keySet()) {
+      if (health <= key) {
+        for (var effect : HEALTH_SYMPTOM_MAP.get(key)) {
+          player.addEffect(create(effect.getA(), effect.getB()));
+        }
+        break;
+      }
     }
-    if (health <= 6) {
-      miningFatigueAmplifier++;
-      slownessAmplifier++;
-    }
-    if (health <= 3) {
-      weaknessAmplifier++;
-      slownessAmplifier++;
-    }
-    if (health <= 2) {
-      nauseaAmplifier++;
-      slownessAmplifier++;
-      weaknessAmplifier++;
-    }
-    if (hunger <= 8) {
-      slownessAmplifier++;
-    }
-    if (hunger <= 4) {
-      weaknessAmplifier++;
-    }
-    if (hunger <= 2) {
-      slownessAmplifier++;
-      miningFatigueAmplifier++;
-    }
-    if (slownessAmplifier >= 0)
-      player.addEffect(create(MobEffects.MOVEMENT_SLOWDOWN, 120, slownessAmplifier));
-    if (miningFatigueAmplifier >= 0)
-      player.addEffect(create(MobEffects.DIG_SLOWDOWN, 120, miningFatigueAmplifier));
-    if (weaknessAmplifier >= 0)
-      player.addEffect(create(MobEffects.WEAKNESS, 120, weaknessAmplifier));
-    if (nauseaAmplifier >= 0) player.addEffect(create(MobEffects.CONFUSION, 120, nauseaAmplifier));
+  }
+
+  public static MobEffectInstance create(MobEffect effect, int amplifier) {
+    return create(effect, 40, amplifier);
   }
 
   public static MobEffectInstance create(MobEffect effect, int durationInTicks, int amplifier) {
